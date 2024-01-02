@@ -1,0 +1,22 @@
+.parentContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+}
+.formContainer {
+  display: grid;
+  row-gap: 0.75rem;
+  padding: 2rem 4rem;
+  width: 45%;
+  border-radius: 8px;
+  margin: 2rem 0rem;
+}
+
+.inputBoxLabel {
+  display: flex;
+  /* flex-direction: column;
+  row-gap: 4px;
+  justify-items: start; */
+}
