@@ -1,13 +1,5 @@
-// import { useState } from "react";
-// import axios from "axios";
-// import { useNavigate } from "react-router-dom";
-// import { Input, Button } from "antd";
-// import styles from "./Signup.module.css";
-// import logo from "../../assets/react.svg";
-
 import "../../assets/css/bootstrap.css";
 import "../../assets/css/style.css";
-import "../../assets/css/font-awesome.css";
 import "../../assets/css/SidebarNav.min.css";
 import "../../assets/css/custom.css";
 

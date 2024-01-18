@@ -3,8 +3,6 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Input, Button, message } from "antd";
 import styles from "./Login.module.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faLock } from "@fortawesome/free-solid-svg-icons";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -39,12 +37,10 @@ const Login = () => {
             placeholder="Enter Your Email"
             onChange={(e) => setEmail(e.target.value)}
             prefix={
-              <FontAwesomeIcon
-                icon={faUser}
-                size="lg"
-                pull="left"
-                className={styles.iconClass}
-              />
+              <i
+                className={`fa fa-user ${styles.iconClass}`}
+                aria-hidden="true"
+              ></i>
             }
           />
 
@@ -53,12 +49,10 @@ const Login = () => {
             placeholder="Password"
             onChange={(e) => setPassword(e.target.value)}
             prefix={
-              <FontAwesomeIcon
-                icon={faLock}
-                size="lg"
-                pull="left"
-                className={styles.iconClass}
-              />
+              <i
+                className={`fa fa-user ${styles.iconClass}`}
+                aria-hidden="true"
+              ></i>
             }
           />
           <div className={styles.checkboxRow}>

@@ -1,9 +1,9 @@
 import "../../assets/css/bootstrap.css";
 import "../../assets/css/style.css";
-import "../../assets/css/font-awesome.css";
 import "../../assets/css/SidebarNav.min.css";
 import "../../assets/css/custom.css";
 import PropTypes from "prop-types";
+import UserImg from "../../assets/images/2.jpg";
 
 const Layout = (props) => {
   return (
@@ -444,151 +444,86 @@ const Layout = (props) => {
             </div>
             <div className="clearfix"> </div>
           </div>
-          {/* <div className="header-right">
-          <div className="search-box">
-            <form className="input">
-              <input
-                className="sb-search-input input__field--madoka"
-                placeholder="Search..."
-                type="search"
-                id="input-31"
-              />
-              <label className="input__label" htmlFor="input-31">
-                <svg
-                  className="graphic"
-                  width="100%"
-                  height="100%"
-                  viewBox="0 0 404 77"
-                  preserveAspectRatio="none"
-                >
-                  <path d="m0,0l404,0l0,77l-404,0l0,-77z" />
-                </svg>
-              </label>
-            </form>
-          </div>
+          <div className="header-right">
+            <div className="search-box">
+              <form className="input">
+                <input
+                  className="sb-search-input input__field--madoka"
+                  placeholder="Search..."
+                  type="search"
+                  id="input-31"
+                />
+                <label className="input__label" htmlFor="input-31">
+                  <svg
+                    className="graphic"
+                    width="100%"
+                    height="100%"
+                    viewBox="0 0 404 77"
+                    preserveAspectRatio="none"
+                  >
+                    <path d="m0,0l404,0l0,77l-404,0l0,-77z" />
+                  </svg>
+                </label>
+              </form>
+            </div>
 
-          <div className="profile_details">
-            <ul>
-              <li className="dropdown profile_details_drop">
-                <a
-                  href="#"
-                  className="dropdown-toggle"
-                  data-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  <div className="profile_img">
-                    <span className="prfil-img">
-                      <img src="images/2.jpg" alt="" />{" "}
-                    </span>
-                    <div className="user-name">
-                      <p>Admin Name</p>
-                      <span>Administrator</span>
+            <div className="profile_details">
+              <ul>
+                <li className="dropdown profile_details_drop">
+                  <a
+                    href="#"
+                    className="dropdown-toggle"
+                    data-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <div className="profile_img">
+                      <span className="prfil-img">
+                        <img src={UserImg} alt="" />{" "}
+                      </span>
+                      <div className="user-name">
+                        <p>Admin Name</p>
+                        <span>Administrator</span>
+                      </div>
+                      <i className="fa fa-angle-down lnr"></i>
+                      <i className="fa fa-angle-up lnr"></i>
+                      <div className="clearfix"></div>
                     </div>
-                    <i className="fa fa-angle-down lnr"></i>
-                    <i className="fa fa-angle-up lnr"></i>
-                    <div className="clearfix"></div>
-                  </div>
-                </a>
-                <ul className="dropdown-menu drp-mnu">
-                  <li>
-                    {" "}
-                    <a href="#">
-                      <i className="fa fa-cog"></i> Settings
-                    </a>{" "}
-                  </li>
-                  <li>
-                    {" "}
-                    <a href="#">
-                      <i className="fa fa-user"></i> My Account
-                    </a>{" "}
-                  </li>
-                  <li>
-                    {" "}
-                    <a href="#">
-                      <i className="fa fa-suitcase"></i> Profile
-                    </a>{" "}
-                  </li>
-                  <li>
-                    {" "}
-                    <a href="#">
-                      <i className="fa fa-sign-out"></i> Logout
-                    </a>{" "}
-                  </li>
-                </ul>
-              </li>
-            </ul>
+                  </a>
+                  <ul className="dropdown-menu drp-mnu">
+                    <li>
+                      {" "}
+                      <a href="#">
+                        <i className="fa fa-cog"></i> Settings
+                      </a>{" "}
+                    </li>
+                    <li>
+                      {" "}
+                      <a href="#">
+                        <i className="fa fa-user"></i> My Account
+                      </a>{" "}
+                    </li>
+                    <li>
+                      {" "}
+                      <a href="#">
+                        <i className="fa fa-suitcase"></i> Profile
+                      </a>{" "}
+                    </li>
+                    <li>
+                      {" "}
+                      <a href="#">
+                        <i className="fa fa-sign-out"></i> Logout
+                      </a>{" "}
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+            <div className="clearfix"> </div>
           </div>
-          <div className="clearfix"> </div>
-        </div> */}
           <div className="clearfix"> </div>
         </div>
         {props.children}
-        {/* <div id="page-wrapper">
-          <div className="main-page signup-page">
-            <h2 className="title1">SignUp Here</h2>
-            <div className="sign-up-row widget-shadow">
-              <h5>Personal Information :</h5>
-              <form action="#" method="post">
-                <div className="sign-u">
-                  <input
-                    type="text"
-                    name="firstname"
-                    placeholder="First Name"
-                    required=""
-                  />
-                  <div className="clearfix"> </div>
-                </div>
-                <div className="sign-u">
-                  <input type="text" placeholder="Last Name" required="" />
-                  <div className="clearfix"> </div>
-                </div>
-                <div className="sign-u">
-                  <input type="email" placeholder="Email Address" required="" />
-                  <div className="clearfix"> </div>
-                </div>
-                <div className="sign-u">
-                  <div className="sign-up1">
-                    <h4>Gender* :</h4>
-                  </div>
-                  <div className="sign-up2">
-                    <label>
-                      <input type="radio" name="Gender" required="" />
-                      Male
-                    </label>
-                    <label>
-                      <input type="radio" name="Gender" required="" />
-                      Female
-                    </label>
-                  </div>
-                  <div className="clearfix"> </div>
-                </div>
-                <h6>Login Information :</h6>
-                <div className="sign-u">
-                  <input type="password" placeholder="Password" required="" />
-                  <div className="clearfix"> </div>
-                </div>
-                <div className="sign-u">
-                  <input
-                    type="password"
-                    placeholder="Confirm Password"
-                    required=""
-                  />
-                </div>
-                <div className="clearfix"> </div>
-                <div className="sub_home">
-                  <input type="submit" value="Submit" />
-                  <div className="clearfix"> </div>
-                </div>
-                <div className="registration">
-                  Already Registered.
-                  <a className="" href="login.html">
-                    Login
-                  </a>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div> */}
+
         <div className="footer">
           <p>
             &copy; 2018 Glance Design Dashboard. All Rights Reserved | Design by{" "}
