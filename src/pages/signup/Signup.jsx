@@ -1,8 +1,3 @@
-import "../../assets/css/bootstrap.css";
-import "../../assets/css/style.css";
-import "../../assets/css/SidebarNav.min.css";
-import "../../assets/css/custom.css";
-
 const Signup = () => {
   // const [name, setName] = useState("");
   // const [email, setEmail] = useState("");

@@ -1,0 +1,5 @@
+.profile_row {
+  display: flex;
+  padding-top: 0.25rem;
+  align-items: center;
+}

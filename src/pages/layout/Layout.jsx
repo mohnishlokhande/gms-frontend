@@ -1,9 +1,5 @@
-import "../../assets/css/bootstrap.css";
-import "../../assets/css/style.css";
-import "../../assets/css/SidebarNav.min.css";
-import "../../assets/css/custom.css";
 import PropTypes from "prop-types";
-import UserImg from "../../assets/images/2.jpg";
+import ProfileActions from "./ProfileActions";
 
 const Layout = (props) => {
   return (
@@ -467,7 +463,9 @@ const Layout = (props) => {
               </form>
             </div>
 
-            <div className="profile_details">
+            <ProfileActions />
+
+            {/* <div className="profile_details">
               <ul>
                 <li className="dropdown profile_details_drop">
                   <a
@@ -517,7 +515,7 @@ const Layout = (props) => {
                   </ul>
                 </li>
               </ul>
-            </div>
+            </div> */}
             <div className="clearfix"> </div>
           </div>
           <div className="clearfix"> </div>
