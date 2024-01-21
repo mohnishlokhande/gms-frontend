@@ -60,18 +60,18 @@ const ProfileActions = () => {
         }}
         className="dropdown-menu drp-mnu"
       >
-        <Dropdown.Item href="#/action-1" style={{ color: "#629aa9" }}>
+        <li href="#/action-1" style={{ color: "#629aa9" }}>
           <i className="fa fa-cog"></i> Settings
-        </Dropdown.Item>
-        <Dropdown.Item href="#/action-2" style={{ color: "#629aa9" }}>
+        </li>
+        <li href="#/action-2" style={{ color: "#629aa9" }}>
           <i className="fa fa-user"></i> My Account
-        </Dropdown.Item>
-        <Dropdown.Item href="#/action-3" style={{ color: "#629aa9" }}>
+        </li>
+        <li href="#/action-3" style={{ color: "#629aa9" }}>
           <i className="fa fa-suitcase"></i> Profile
-        </Dropdown.Item>
-        <Dropdown.Item href="#/action-3" style={{ color: "#629aa9" }}>
+        </li>
+        <li href="#/action-3" style={{ color: "#629aa9" }}>
           <i className="fa fa-sign-out"></i> Logout
-        </Dropdown.Item>
+        </li>
       </Dropdown.Menu>
     </Dropdown>
   );

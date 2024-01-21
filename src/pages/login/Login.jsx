@@ -1,12 +1,23 @@
-import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import styles from "./Login.module.css";
+import { useForm } from "react-hook-form";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    watch,
+    // formState: { errors },
+  } = useForm();
+
+  const email = watch("email");
+  const password = watch("password");
+
+  const onSubmit = (data) => {
+    console.log("#####", data);
+    handleLogin();
+  };
 
   const handleLogin = async () => {
     try {
@@ -25,53 +36,49 @@ const Login = () => {
       console.error("Login failed. Please check your credentials.");
     }
   };
+  const isAuthenticated = localStorage.getItem("token");
+  console.log("###", isAuthenticated);
 
   return (
-    <div className={`${styles.parentContainer} ${styles.page_wrapper}`}>
-      <div className={`${styles.formContainer} ${styles.login_page}`}>
-        <div className={`${styles.login_heading}`}>Login</div>
-        <div className={`${styles.widget_shadow} ${styles.login_body}`}>
-          <input
-            type="text"
-            placeholder="Enter Your Email"
-            onChange={(e) => setEmail(e.target.value)}
-            // prefix={
-            //   <i
-            //     className={`fa fa-user ${styles.iconClass}`}
-            //     aria-hidden="true"
-            //   ></i>
-            // }
-          />
-
-          <input
-            type="password"
-            placeholder="Password"
-            onChange={(e) => setPassword(e.target.value)}
-            // prefix={
-            //   <i
-            //     className={`fa fa-user ${styles.iconClass}`}
-            //     aria-hidden="true"
-            //   ></i>
-            // }
-          />
-          <div className={styles.checkboxRow}>
-            <div className={`${styles.checkboxClass}`}>
-              <input type="checkbox" name="checkbox" />
-              <div>Remember me</div>
-            </div>
-            <div className={styles.forgetPass}>forgot password?</div>
-          </div>
-          <button
-            type="primary"
-            // block
-            onClick={handleLogin}
-            disabled={!email || !password}
-          >
-            Sign In
-          </button>
-          <div className={styles.checkboxClass}>
-            {` Don't have an account ? `}&nbsp;
-            <div>Create an account</div>
+    <div id="page-wrapper">
+      <div className="main-page login-page ">
+        <h2 className="title1">Login</h2>
+        <div className="widget-shadow">
+          <div className="login-body">
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <input
+                {...register("email", { required: true })}
+                type="email"
+                className="user"
+                placeholder="Enter Your Email"
+              />
+              <input
+                type="password"
+                {...register("password", { required: true })}
+                className="lock"
+                placeholder="Password"
+              />
+              <div className="forgot-grid">
+                <label className="checkbox">
+                  <input
+                    type="checkbox"
+                    {...register("checkbox", { required: false })}
+                  />
+                  <i></i>Remember me
+                </label>
+                <div className="forgot">
+                  <a href="#">forgot password?</a>
+                </div>
+                <div className="clearfix"> </div>
+              </div>
+              <input type="submit" value="Sign In" />
+              {/* <div className="registration">
+                Do not have an account ?
+                <a className="" href="signup.html">
+                  Create an account
+                </a>
+              </div> */}
+            </form>
           </div>
         </div>
       </div>

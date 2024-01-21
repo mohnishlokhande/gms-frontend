@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import ProfileActions from "./ProfileActions";
+// import UserImg from "../../assets/images/2.jpg";
 
 const Layout = (props) => {
   return (
@@ -479,7 +480,7 @@ const Layout = (props) => {
                         <img src={UserImg} alt="" />{" "}
                       </span>
                       <div className="user-name">
-                        <p>Admin Name</p>
+                        <div>Admin Name</div>
                         <span>Administrator</span>
                       </div>
                       <i className="fa fa-angle-down lnr"></i>
