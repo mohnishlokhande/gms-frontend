@@ -1,25 +1,37 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Login from "./pages/login/Login";
 import Signup from "./pages/signup/Signup";
-import Layout from "./pages/layout/Layout";
 import PrivateRoute from "./components/PrivateRoute";
 
+const protectedRoutes = [
+  { path: "/", element: <div>home</div> },
+  { path: "/dashboard", element: <div>dashboard</div> },
+  { path: "/profile", element: <div>profile</div> },
+];
+
 function App() {
+  const isAuthenticated = localStorage.getItem("token");
+
   return (
     <>
-      <Layout>
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
+      <Routes>
+        <Route
+          path="/login"
+          element={isAuthenticated ? <Navigate to="/" /> : <Login />}
+        />
+        <Route path="/signup" element={<Signup />} />
 
-          <Route element={<PrivateRoute />}>
-            <Route path="/" element={<div>home</div>}></Route>
-          </Route>
+        {protectedRoutes.map((route) => (
+          <Route
+            key={route.path}
+            path={route.path}
+            element={<PrivateRoute element={route.element} />}
+          />
+        ))}
 
-          {/* <Route element={<Navigate to={"/login"} replace />} /> */}
-        </Routes>
-      </Layout>
+        <Route path="*" element={<Navigate to="/login" />} />
+      </Routes>
     </>
   );
 }

@@ -1,8 +1,19 @@
-import { Outlet, Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
+import Layout from "../pages/layout/Layout";
+import PropTypes from "prop-types";
 
-const PrivateRoute = () => {
+const PrivateRoute = ({ element }) => {
   const isAuthenticated = localStorage.getItem("token");
-  return <>{isAuthenticated ? <Outlet /> : <Navigate to="/login" replace />}</>;
+
+  if (!isAuthenticated) {
+    return <Navigate to="/login" replace />;
+  }
+
+  return <Layout>{element}</Layout>;
 };
 
 export default PrivateRoute;
+
+PrivateRoute.propTypes = {
+  element: PropTypes.node.isRequired,
+};
