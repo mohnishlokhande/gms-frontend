@@ -1,9 +1,12 @@
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { useRefetchStore } from "../../store/userStore";
 
 const Login = () => {
   const navigate = useNavigate();
+  const refetchAccount = useRefetchStore((state) => state.refetchAccount);
+
   const {
     register,
     handleSubmit,
@@ -31,6 +34,7 @@ const Login = () => {
       const { token } = response.data;
       localStorage.setItem("token", token);
       navigate("/");
+      refetchAccount();
     } catch (error) {
       console.error("Login failed", error);
       console.error("Login failed. Please check your credentials.");
@@ -58,7 +62,7 @@ const Login = () => {
                 className="lock"
                 placeholder="Password"
               />
-              <div className="forgot-grid">
+              {/* <div className="forgot-grid">
                 <label className="checkbox">
                   <input
                     type="checkbox"
@@ -70,7 +74,7 @@ const Login = () => {
                   <a href="#">forgot password?</a>
                 </div>
                 <div className="clearfix"> </div>
-              </div>
+              </div> */}
               <input type="submit" value="Sign In" />
               {/* <div className="registration">
                 Do not have an account ?

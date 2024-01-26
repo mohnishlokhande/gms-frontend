@@ -111,6 +111,7 @@ span.dashboard_text {
   display: flex;
   width: 30%;
   align-items: center;
+  justify-content: flex-end;
 }
 /* ----menu-icon----*/
 button#showLeftPush {
@@ -3467,11 +3468,11 @@ button.btn.btn-default {
 }
 .btn-pri i {
   background: rgba(0, 0, 0, 0.1);
-  left: -1px;
+  left: 0px;
   margin-right: 0px;
-  padding: 13px 10px;
+  padding: 11px 10px;
   position: absolute;
-  top: -1px;
+  top: 0px;
 }
 .button_set_one .btn {
   display: inline-block;

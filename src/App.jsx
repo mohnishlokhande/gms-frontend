@@ -5,7 +5,8 @@ import Signup from "./pages/signup/Signup";
 import PrivateRoute from "./components/PrivateRoute";
 import { useGetAPI } from "./api/Apis";
 import { useEffect } from "react";
-import { useAccountStore } from "./store/userStore";
+import { useAccountStore, useRefetchStore } from "./store/userStore";
+import UsersPage from "./pages/UsersPage";
 
 const protectedRoutes = [
   { path: "/", element: <div id="page-wrapper">home</div> },
@@ -17,13 +18,17 @@ const protectedRoutes = [
       </div>
     ),
   },
-  { path: "/profile", element: <div>profile</div> },
+  { path: "/users", element: <UsersPage /> },
+  { path: "/gym", element: <div id="page-wrapper">gym</div> },
+  { path: "/membership", element: <div id="page-wrapper">membership</div> },
 ];
 
 function App() {
   const isAuthenticated = localStorage.getItem("token");
 
-  const { data: accountData = {} } = useGetAPI("user");
+  const accountCount = useRefetchStore((state) => state.accountCount);
+
+  const { data: accountData = {} } = useGetAPI("user", accountCount);
   const updateAcc = useAccountStore((state) => state.setAccount);
 
   useEffect(() => {

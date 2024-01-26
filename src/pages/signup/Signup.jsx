@@ -1,42 +1,4 @@
 const Signup = () => {
-  // const [name, setName] = useState("");
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-  // const [confirmPassword, setConfirmPassword] = useState("");
-  // const [phone, setPhone] = useState("");
-  // const navigate = useNavigate();
-
-  // const handleSignup = async () => {
-  //   try {
-  //     if (password !== confirmPassword) {
-  //       console.error("Passwords do not match");
-  //       return;
-  //     }
-
-  //     const response = await axios.post(
-  //       "http://localhost:8080/user/signup",
-  //       {
-  //         name,
-  //         email,
-  //         password,
-  //         confirmPassword,
-  //         phone,
-  //       },
-  //       {
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         method: "POST",
-  //       }
-  //     );
-
-  //     console.log("Signup successful", response.data);
-  //     navigate("/login");
-  //   } catch (error) {
-  //     console.error("Signup failed", error);
-  //   }
-  // };
-
   return (
     // <div className={styles.parentContainer}>
     //   <div className={styles.formContainer}>
@@ -112,7 +74,7 @@ const Signup = () => {
     <div id="page-wrapper">
       <div className="main-page signup-page">
         <h2 className="title1">SignUp Here</h2>
-        <div className="sign-up-row widget-shadow">
+        <div className="sign-up-row widget-shadow"> 
           <h5>Personal Information :</h5>
           <form action="#" method="post">
             <div className="sign-u">

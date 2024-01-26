@@ -1,8 +1,12 @@
 import PropTypes from "prop-types";
 import ProfileActions from "./ProfileActions";
-// import UserImg from "../../assets/images/2.jpg";
+// import { useAccountStore } from "../../store/userStore";
+import { useNavigate } from "react-router-dom";
 
 const Layout = (props) => {
+  const navigate = useNavigate();
+  // const account = useAccountStore((state) => state.account);
+
   return (
     <body className="cbp-spmenu-push">
       <div className="main-content">
@@ -26,8 +30,8 @@ const Layout = (props) => {
                   <span className="icon-bar"></span>
                 </button>
                 <h1>
-                  <a className="navbar-brand" href="index.html">
-                    <span className="fa fa-area-chart"></span> Glance
+                  <a className="navbar-brand" href="/">
+                    <span className="fa fa-area-chart"></span> GMS
                     <span className="dashboard_text">Design dashboard</span>
                   </a>
                 </h1>
@@ -39,160 +43,46 @@ const Layout = (props) => {
                 <ul className="sidebar-menu">
                   <li className="header">MAIN NAVIGATION</li>
                   <li className="treeview">
-                    <a href="index.html">
+                    <a
+                      onClick={() => {
+                        navigate("/dashboard");
+                      }}
+                    >
                       <i className="fa fa-dashboard"></i> <span>Dashboard</span>
                     </a>
                   </li>
                   <li className="treeview">
-                    <a href="#">
-                      <i className="fa fa-laptop"></i>
-                      <span>Components</span>
-                      <i className="fa fa-angle-left pull-right"></i>
-                    </a>
-                    <ul className="treeview-menu">
-                      <li>
-                        <a href="grids.html">
-                          <i className="fa fa-angle-right"></i> Grids
-                        </a>
-                      </li>
-                      <li>
-                        <a href="media.html">
-                          <i className="fa fa-angle-right"></i> Media Css
-                        </a>
-                      </li>
-                    </ul>
-                  </li>
-                  <li className="treeview">
-                    <a href="charts.html">
-                      <i className="fa fa-pie-chart"></i>
-                      <span>Charts</span>
-                      <span className="label label-primary pull-right">
-                        new
-                      </span>
+                    <a
+                      onClick={() => {
+                        navigate("/users");
+                      }}
+                    >
+                      <i className="fa fa-users"></i>
+                      <span>Users</span>
                     </a>
                   </li>
                   <li className="treeview">
-                    <a href="#">
-                      <i className="fa fa-laptop"></i>
-                      <span>UI Elements</span>
-                      <i className="fa fa-angle-left pull-right"></i>
-                    </a>
-                    <ul className="treeview-menu">
-                      <li>
-                        <a href="general.html">
-                          <i className="fa fa-angle-right"></i> General
-                        </a>
-                      </li>
-                      <li>
-                        <a href="icons.html">
-                          <i className="fa fa-angle-right"></i> Icons
-                        </a>
-                      </li>
-                      <li>
-                        <a href="buttons.html">
-                          <i className="fa fa-angle-right"></i> Buttons
-                        </a>
-                      </li>
-                      <li>
-                        <a href="typography.html">
-                          <i className="fa fa-angle-right"></i> Typography
-                        </a>
-                      </li>
-                    </ul>
-                  </li>
-                  <li>
-                    <a href="widgets.html">
-                      <i className="fa fa-th"></i> <span>Widgets</span>
-                      <small className="label pull-right label-info">08</small>
+                    <a
+                      onClick={() => {
+                        navigate("/gym");
+                      }}
+                    >
+                      <i className="fa fa-cogs"></i>
+                      <span>GYM</span>
                     </a>
                   </li>
                   <li className="treeview">
-                    <a href="#">
-                      <i className="fa fa-edit"></i> <span>Forms</span>
-                      <i className="fa fa-angle-left pull-right"></i>
+                    <a
+                      onClick={() => {
+                        navigate("/membership");
+                      }}
+                    >
+                      <i className="fa fa-address-card-o"></i>
+                      <span>Membership</span>
                     </a>
-                    <ul className="treeview-menu">
-                      <li>
-                        <a href="forms.html">
-                          <i className="fa fa-angle-right"></i> General Forms
-                        </a>
-                      </li>
-                      <li>
-                        <a href="validation.html">
-                          <i className="fa fa-angle-right"></i> Form Validations
-                        </a>
-                      </li>
-                    </ul>
                   </li>
-                  <li className="treeview">
-                    <a href="#">
-                      <i className="fa fa-table"></i> <span>Tables</span>
-                      <i className="fa fa-angle-left pull-right"></i>
-                    </a>
-                    <ul className="treeview-menu">
-                      <li>
-                        <a href="tables.html">
-                          <i className="fa fa-angle-right"></i> Simple tables
-                        </a>
-                      </li>
-                    </ul>
-                  </li>
-                  <li className="treeview">
-                    <a href="#">
-                      <i className="fa fa-envelope"></i> <span>Mailbox</span>
-                      <i className="fa fa-angle-left pull-right"></i>
-                      <small className="label pull-right label-info1">08</small>
-                      <span className="label label-primary1 pull-right">
-                        02
-                      </span>
-                    </a>
-                    <ul className="treeview-menu">
-                      <li>
-                        <a href="inbox.html">
-                          <i className="fa fa-angle-right"></i> Mail Inbox
-                        </a>
-                      </li>
-                      <li>
-                        <a href="compose.html">
-                          <i className="fa fa-angle-right"></i> Compose Mail{" "}
-                        </a>
-                      </li>
-                    </ul>
-                  </li>
-                  <li className="treeview">
-                    <a href="#">
-                      <i className="fa fa-folder"></i> <span>Examples</span>
-                      <i className="fa fa-angle-left pull-right"></i>
-                    </a>
-                    <ul className="treeview-menu">
-                      <li>
-                        <a href="login.html">
-                          <i className="fa fa-angle-right"></i> Login
-                        </a>
-                      </li>
-                      <li>
-                        <a href="signup.html">
-                          <i className="fa fa-angle-right"></i> Register
-                        </a>
-                      </li>
-                      <li>
-                        <a href="404.html">
-                          <i className="fa fa-angle-right"></i> 404 Error
-                        </a>
-                      </li>
-                      <li>
-                        <a href="500.html">
-                          <i className="fa fa-angle-right"></i> 500 Error
-                        </a>
-                      </li>
-                      <li>
-                        <a href="blank-page.html">
-                          <i className="fa fa-angle-right"></i> Blank Page
-                        </a>
-                      </li>
-                    </ul>
-                  </li>
-                  <li className="header">LABELS</li>
+
+                  {/* <li className="header">LABELS</li>
                   <li>
                     <a href="#">
                       <i className="fa fa-angle-right text-red"></i>{" "}
@@ -210,7 +100,7 @@ const Layout = (props) => {
                       <i className="fa fa-angle-right text-aqua"></i>{" "}
                       <span>Information</span>
                     </a>
-                  </li>
+                  </li> */}
                 </ul>
               </div>
             </nav>
@@ -442,7 +332,7 @@ const Layout = (props) => {
             <div className="clearfix"> </div>
           </div>
           <div className="header-right">
-            <div className="search-box">
+            {/* <div className="search-box">
               <form className="input">
                 <input
                   className="sb-search-input input__field--madoka"
@@ -462,7 +352,7 @@ const Layout = (props) => {
                   </svg>
                 </label>
               </form>
-            </div>
+            </div> */}
 
             <ProfileActions />
 
@@ -488,7 +378,5 @@ const Layout = (props) => {
 export default Layout;
 
 Layout.propTypes = {
-  // header: PropTypes.bool,
-  // aside: PropTypes.bool,
   children: PropTypes.node.isRequired,
 };

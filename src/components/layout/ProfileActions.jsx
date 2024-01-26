@@ -1,6 +1,10 @@
 import UserImg from "../../assets/images/2.jpg";
+import { useAccountStore } from "../../store/userStore";
+import { getRole } from "../../utils/helper";
 
 const ProfileActions = () => {
+  const account = useAccountStore((state) => state.account);
+
   return (
     <div className="profile_details">
       <ul>
@@ -16,8 +20,8 @@ const ProfileActions = () => {
                 <img src={UserImg} alt="" />{" "}
               </span>
               <div className="user-name">
-                <div>Admin Name</div>
-                <span>Administrator</span>
+                <div>{account?.name}</div>
+                <span>{getRole(account?.role)} </span>
               </div>
               <i className="fa fa-angle-down lnr"></i>
               <i className="fa fa-angle-up lnr"></i>

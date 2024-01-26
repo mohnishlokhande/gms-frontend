@@ -1,5 +1,5 @@
 import { Navigate } from "react-router-dom";
-import Layout from "../pages/layout/Layout";
+import Layout from "./layout/Layout";
 import PropTypes from "prop-types";
 
 const PrivateRoute = ({ element }) => {

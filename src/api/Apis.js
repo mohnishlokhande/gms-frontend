@@ -3,39 +3,41 @@ import { useEffect, useState } from "react";
 
 const baseURL = "http://localhost:8080";
 
-const useGetAPI = (endPoint) => {
+const useGetAPI = (endPoint, refetchCount = 1) => {
   const [data, setData] = useState(undefined);
   const [isLoading, setLoading] = useState(false);
   const token = localStorage.getItem("token");
 
   useEffect(() => {
-    setLoading(true);
-    axios
-      .get(`${baseURL}/${endPoint}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((value) => {
-        // console.log("###a", value?.status);
-        setData(value.data);
-        setLoading(false);
-      });
-  }, []);
+    if (token) {
+      setLoading(true);
+      axios
+        .get(`${baseURL}/${endPoint}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((value) => {
+          // console.log("###a", value?.status);
+          setData(value.data);
+          setLoading(false);
+        });
+    }
+  }, [refetchCount]);
 
   return { isLoading, data };
 };
 
-const usePostAPI = (endPoint, payload) => {
-  const [data, setData] = useState(undefined);
+const usePostAPI = (config = {}) => {
+  // const [data, setData] = useState(undefined);
   const [isLoading, setLoading] = useState(false);
   const token = localStorage.getItem("token");
 
-  useEffect(() => {
+  const mutate = (payload) => {
     setLoading(true);
     axios
       .post(
-        `${baseURL}/${endPoint}`,
+        `${baseURL}/${config?.endPoint}`,
         { ...payload },
         {
           headers: {
@@ -43,13 +45,16 @@ const usePostAPI = (endPoint, payload) => {
           },
         }
       )
-      // .then((value) => value.json())
       .then((value) => {
-        setData(value);
+        config?.onSuccess(value);
         setLoading(false);
+      })
+      .catch((error) => {
+        setLoading(false);
+        config?.onError(error?.response);
       });
-  }, []);
-  return [isLoading, data];
+  };
+  return { mutate, isLoading };
 };
 
 export { useGetAPI, usePostAPI };
