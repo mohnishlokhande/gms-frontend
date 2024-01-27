@@ -1,4 +1,3 @@
-import UserImg from "../../assets/images/2.jpg";
 import { useAccountStore } from "../../store/userStore";
 import { getRole } from "../../utils/helper";
 
@@ -17,7 +16,12 @@ const ProfileActions = () => {
           >
             <div className="profile_img" style={{ display: "flex" }}>
               <span className="prfil-img">
-                <img src={UserImg} alt="" />{" "}
+                {/* <img src={UserImg} alt="" />{" "} */}
+                <i
+                  className="fa fa-user-circle-o fa-lg"
+                  style={{ color: "#424f63" }}
+                  aria-hidden="true"
+                ></i>
               </span>
               <div className="user-name">
                 <div>{account?.name}</div>

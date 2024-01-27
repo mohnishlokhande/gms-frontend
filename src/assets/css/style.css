@@ -69,7 +69,7 @@ span.dashboard_text {
   text-transform: capitalize;
   display: block;
   letter-spacing: 1px;
-  padding-left: 35px;
+  /* padding-left: 35px; */
 }
 
 .navbar-inverse .navbar-brand {
@@ -901,7 +901,9 @@ ul.dropdown-menu {
   padding: 0.2em 3em 0 0em;
 }
 .profile_img span.prfil-img {
-  float: left;
+  display: flex;
+  align-items: center;
+  padding: 4px;
 }
 .user-name {
   float: left;

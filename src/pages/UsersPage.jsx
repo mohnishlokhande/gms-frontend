@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useGetAPI, usePostAPI } from "../api/Apis";
 import { useRefetchStore, useUsersStore } from "../store/userStore";
 import { getRole } from "../utils/helper";
@@ -7,6 +7,8 @@ import { useForm } from "react-hook-form";
 export default function UsersPage() {
   const usersCount = useRefetchStore((state) => state.usersCount);
   const refetchUsers = useRefetchStore((state) => state.refetchUsers);
+
+  const modalBtnRef = useRef(null);
 
   const { data: { users: usersData = [] } = {} } = useGetAPI(
     "users",
@@ -29,10 +31,17 @@ export default function UsersPage() {
   const phone = watch("phone");
   const gender = watch("gender");
 
+  const toogleModal = () => {
+    if (modalBtnRef.current) {
+      modalBtnRef.current.click();
+    }
+  };
+
   const { mutate } = usePostAPI({
     endPoint: "user/signup",
     onSuccess: () => {
       refetchUsers();
+      toogleModal();
     },
     onError: (err) => {
       console.log("###$@$", err);
@@ -302,7 +311,7 @@ export default function UsersPage() {
               ) : ( */}
               <button
                 type="button"
-                className={`btn btn-primary ${isDisable && "disabled"}`}
+                className={`btn btn-warning ${isDisable && "disabled"}`}
                 onClick={createUser}
               >
                 Submit

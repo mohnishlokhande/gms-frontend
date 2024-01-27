@@ -7,20 +7,35 @@ import { useGetAPI } from "./api/Apis";
 import { useEffect } from "react";
 import { useAccountStore, useRefetchStore } from "./store/userStore";
 import UsersPage from "./pages/UsersPage";
+import GymPage from "./pages/GymPage";
 
 const protectedRoutes = [
-  { path: "/", element: <div id="page-wrapper">home</div> },
   {
-    path: "/dashboard",
+    path: "/",
     element: (
-      <div id="page-wrapper">
-        <div className="main-page">dashboard</div>
+      <div id="page-wrapper" style={{ height: "90vh" }}>
+        home
       </div>
     ),
   },
+  // {
+  //   path: "/dashboard",
+  //   element: (
+  //     <div id="page-wrapper">
+  //       <div className="main-page">dashboard</div>
+  //     </div>
+  //   ),
+  // },
   { path: "/users", element: <UsersPage /> },
-  { path: "/gym", element: <div id="page-wrapper">gym</div> },
-  { path: "/membership", element: <div id="page-wrapper">membership</div> },
+  { path: "/gym", element: <GymPage /> },
+  {
+    path: "/membership",
+    element: (
+      <div id="page-wrapper" style={{ height: "90vh" }}>
+        membership
+      </div>
+    ),
+  },
 ];
 
 function App() {

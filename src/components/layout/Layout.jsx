@@ -32,7 +32,9 @@ const Layout = (props) => {
                 <h1>
                   <a className="navbar-brand" href="/">
                     <span className="fa fa-area-chart"></span> GMS
-                    <span className="dashboard_text">Design dashboard</span>
+                    <span className="dashboard_text">
+                      Gym Management System
+                    </span>
                   </a>
                 </h1>
               </div>
@@ -45,7 +47,7 @@ const Layout = (props) => {
                   <li className="treeview">
                     <a
                       onClick={() => {
-                        navigate("/dashboard");
+                        navigate("/");
                       }}
                     >
                       <i className="fa fa-dashboard"></i> <span>Dashboard</span>
@@ -364,7 +366,7 @@ const Layout = (props) => {
 
         <div className="footer">
           <p>
-            &copy; 2018 Glance Design Dashboard. All Rights Reserved | Design by{" "}
+            &copy; 2024 Gym Management System. All Rights Reserved | Design by{" "}
             {/* <a href="https://w3layouts.com/" target="_blank"> */}
             w3layouts
             {/* </a> */}
