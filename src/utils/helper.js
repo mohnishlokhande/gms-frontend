@@ -6,7 +6,6 @@ export const getRole = (num) => {
 
 export const getFormatDate = (date) => {
   let temp = new Date(date);
-  console.log("####", temp);
   return (
     temp.getDate() + "/" + (temp.getMonth() + 1) + "/" + temp.getFullYear()
   );

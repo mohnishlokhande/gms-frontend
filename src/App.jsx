@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import { useAccountStore, useRefetchStore } from "./store/userStore";
 import UsersPage from "./pages/UsersPage";
 import GymPage from "./pages/GymPage";
+import MembershipPage from "./pages/MembershipPage";
 
 const protectedRoutes = [
   {
@@ -30,11 +31,7 @@ const protectedRoutes = [
   { path: "/gym", element: <GymPage /> },
   {
     path: "/membership",
-    element: (
-      <div id="page-wrapper" style={{ height: "90vh" }}>
-        membership
-      </div>
-    ),
+    element: <MembershipPage />,
   },
 ];
 

@@ -50,13 +50,19 @@ export default function GymPage() {
   });
 
   const createGym = () => {
-    const payload = {
+    let payload = {
       name,
       is_head_office: Number(isHeadOffice) ? true : false,
       address,
       parent_id: Number(parent),
       owner_id: Number(owner),
     };
+    if (parent !== "-1") {
+      payload = { ...payload, parent_id: Number(parent) };
+    }
+    if (owner !== "-1") {
+      payload = { ...payload, owner_id: Number(owner) };
+    }
     mutate(payload);
   };
 
@@ -87,9 +93,6 @@ export default function GymPage() {
               className="btn btn-primary btn-flat btn-pri btn-lg"
               data-toggle="modal"
               data-target="#gridSystemModal"
-              onClick={() => {
-                console.log("###clicked");
-              }}
             >
               <i className="fa fa-plus" aria-hidden="true"></i> Add gym
             </button>

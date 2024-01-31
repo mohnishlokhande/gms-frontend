@@ -39,6 +39,10 @@ const refetchStore = (set) => ({
   refetchGyms: () => {
     set((state) => ({ gymCount: state.gymCount + 1 }));
   },
+  membershipCount: 1,
+  refetchMemberships: () => {
+    set((state) => ({ membershipCount: state.membershipCount + 1 }));
+  },
 });
 
 export const useRefetchStore = create(refetchStore);
