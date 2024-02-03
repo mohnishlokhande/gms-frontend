@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useGetAPI, usePostAPI } from "../api/Apis";
 import { useRefetchStore, useUsersStore } from "../store/userStore";
 import { getRole } from "../utils/helper";
@@ -10,6 +10,7 @@ export default function UsersPage() {
   const refetchUsers = useRefetchStore((state) => state.refetchUsers);
 
   const modalBtnRef = useRef(null);
+  const [userProfile, setUserProfile] = useState({});
 
   const { data: { users: usersData = [] } = {} } = useGetAPI(
     "users",
@@ -100,29 +101,77 @@ export default function UsersPage() {
           </div>
 
           <div className="panel-body widget-shadow">
-            <table className="table">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>Role</th>
-                </tr>
-              </thead>
-              <tbody>
-                {users?.map((user) => {
-                  if (user?.id === 0) return null;
-                  return (
-                    <tr key={user?.id}>
-                      <th scope="row"> {user?.id}</th>
-                      <td>{user?.name} </td>
-                      <td>{user?.email}</td>
-                      <td>{getRole(user?.role)}</td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+            {userProfile?.id !== undefined ? (
+              <>
+                <button
+                  type="button"
+                  className="btn btn-sm"
+                  onClick={() => {
+                    setUserProfile({});
+                  }}
+                >
+                  <i className="fa fa-arrow-left" aria-hidden="true"></i> Back
+                </button>
+                <div className="userProfilePg">
+                  <div className="formRow">
+                    <b>Name:</b>
+                    <p>{userProfile?.name}</p>
+                  </div>
+                  <div className="formRow">
+                    <b>Email:</b>
+                    <p>{userProfile?.email}</p>
+                  </div>
+                  <div className="formRow">
+                    <b>Phone:</b>
+                    <p>{userProfile?.phone}</p>
+                  </div>
+                  <div className="formRow">
+                    <b>Gender:</b>
+                    <p>{userProfile?.gender}</p>
+                  </div>
+                  <div className="formRow">
+                    <b>Role:</b>
+                    <p>{getRole(userProfile?.role)}</p>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {users?.map((user) => {
+                    if (user?.id === 0) return null;
+                    return (
+                      <tr key={user?.id}>
+                        <th scope="row"> {user?.id}</th>
+                        <td>{user?.name} </td>
+                        <td>{user?.email}</td>
+                        <td>{getRole(user?.role)}</td>
+                        <td>
+                          <button
+                            type="button"
+                            className="btn btn-xs btn-default hvr-icon-grow fa-eye col-9"
+                            onClick={() => {
+                              setUserProfile(user);
+                            }}
+                          >
+                            View user profile{"   "}
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            )}
           </div>
 
           {/* <div

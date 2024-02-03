@@ -5,7 +5,36 @@ import { useNavigate } from "react-router-dom";
 
 const Layout = (props) => {
   const navigate = useNavigate();
-  // const account = useAccountStore((state) => state.account);
+
+  const pathName = window?.location?.pathname;
+  let dashboardClassName = "treeview";
+  let usersClassName = "treeview";
+  let gymsClassName = "treeview";
+  let membershipsClassName = "treeview";
+  let leadsClassName = "treeview";
+
+  switch (pathName) {
+    case "/": {
+      dashboardClassName += " active";
+      break;
+    }
+    case "/users": {
+      usersClassName += " active";
+      break;
+    }
+    case "/gym": {
+      gymsClassName += " active";
+      break;
+    }
+    case "/membership": {
+      membershipsClassName += " active";
+      break;
+    }
+    case "/leads": {
+      leadsClassName += " active";
+      break;
+    }
+  }
 
   return (
     <body className="cbp-spmenu-push">
@@ -44,7 +73,7 @@ const Layout = (props) => {
               >
                 <ul className="sidebar-menu">
                   <li className="header">MAIN NAVIGATION</li>
-                  <li className="treeview">
+                  <li className={dashboardClassName}>
                     <a
                       onClick={() => {
                         navigate("/");
@@ -53,7 +82,7 @@ const Layout = (props) => {
                       <i className="fa fa-dashboard"></i> <span>Dashboard</span>
                     </a>
                   </li>
-                  <li className="treeview">
+                  <li className={usersClassName}>
                     <a
                       onClick={() => {
                         navigate("/users");
@@ -63,7 +92,7 @@ const Layout = (props) => {
                       <span>Users</span>
                     </a>
                   </li>
-                  <li className="treeview">
+                  <li className={gymsClassName}>
                     <a
                       onClick={() => {
                         navigate("/gym");
@@ -73,7 +102,7 @@ const Layout = (props) => {
                       <span>GYM</span>
                     </a>
                   </li>
-                  <li className="treeview">
+                  <li className={membershipsClassName}>
                     <a
                       onClick={() => {
                         navigate("/membership");
@@ -83,7 +112,7 @@ const Layout = (props) => {
                       <span>Membership</span>
                     </a>
                   </li>
-                  <li className="treeview">
+                  <li className={leadsClassName}>
                     <a
                       onClick={() => {
                         navigate("/leads");
