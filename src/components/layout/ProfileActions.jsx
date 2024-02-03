@@ -1,8 +1,10 @@
+import { useNavigate } from "react-router-dom";
 import { useAccountStore } from "../../store/userStore";
 import { getRole } from "../../utils/helper";
 
 const ProfileActions = () => {
   const account = useAccountStore((state) => state.account);
+  const navigate = useNavigate();
 
   return (
     <div className="profile_details">
@@ -39,13 +41,12 @@ const ProfileActions = () => {
               </a>
             </li>
             <li>
-              <a href="#">
+              <a
+                onClick={() => {
+                  navigate("/account");
+                }}
+              >
                 <i className="fa fa-user"></i> My Account
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <i className="fa fa-suitcase"></i> Profile
               </a>
             </li>
             <li

@@ -10,6 +10,7 @@ import UsersPage from "./pages/UsersPage";
 import GymPage from "./pages/GymPage";
 import MembershipPage from "./pages/MembershipPage";
 import LeadsPage from "./pages/LeadsPage";
+import MyAccount from "./pages/AccountPage";
 
 const protectedRoutes = [
   {
@@ -37,6 +38,10 @@ const protectedRoutes = [
   {
     path: "/leads",
     element: <LeadsPage />,
+  },
+  {
+    path: "/account",
+    element: <MyAccount />,
   },
 ];
 

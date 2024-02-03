@@ -133,6 +133,10 @@ export default function UsersPage() {
                     <b>Role:</b>
                     <p>{getRole(userProfile?.role)}</p>
                   </div>
+                  <div className="formRow">
+                    <b>Gym:</b>
+                    <p>{userProfile?.gymName}</p>
+                  </div>
                 </div>
               </>
             ) : (
