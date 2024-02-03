@@ -44,7 +44,7 @@ const Login = () => {
   console.log("###", isAuthenticated);
 
   return (
-    <div id="page-wrapper">
+    <div id="page-wrapper" style={{ height: "100vh" }}>
       <div className="main-page login-page ">
         <h2 className="title1">Login</h2>
         <div className="widget-shadow">

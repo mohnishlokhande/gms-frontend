@@ -83,6 +83,16 @@ const Layout = (props) => {
                       <span>Membership</span>
                     </a>
                   </li>
+                  <li className="treeview">
+                    <a
+                      onClick={() => {
+                        navigate("/leads");
+                      }}
+                    >
+                      <i className="fa fa-rocket"></i>
+                      <span>Leads</span>
+                    </a>
+                  </li>
 
                   {/* <li className="header">LABELS</li>
                   <li>

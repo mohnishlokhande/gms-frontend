@@ -9,6 +9,7 @@ import { useAccountStore, useRefetchStore } from "./store/userStore";
 import UsersPage from "./pages/UsersPage";
 import GymPage from "./pages/GymPage";
 import MembershipPage from "./pages/MembershipPage";
+import LeadsPage from "./pages/LeadsPage";
 
 const protectedRoutes = [
   {
@@ -32,6 +33,10 @@ const protectedRoutes = [
   {
     path: "/membership",
     element: <MembershipPage />,
+  },
+  {
+    path: "/leads",
+    element: <LeadsPage />,
   },
 ];
 
