@@ -11,7 +11,7 @@ export default function LeadsPage() {
   const modalBtnRef = useRef(null);
 
   const { data: { users: usersData = [] } = {} } = useGetAPI(
-    "users",
+    "users?limit=20&offset=0&type=lead",
     usersCount
   );
   const { data: { gyms: gymsData = [] } = {} } = useGetAPI("gyms");
@@ -59,8 +59,8 @@ export default function LeadsPage() {
       password: "password",
       phone,
       gender,
-      is_lead: true,
-      gym_id: Number(gymId),
+      isLead: true,
+      gymId: Number(gymId),
     };
     mutate(payload);
   };

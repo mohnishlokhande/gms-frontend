@@ -112,11 +112,11 @@ export default function GymPage() {
                 </tr>
               </thead>
               <tbody>
-                {gyms?.map((gym) => {
+                {gyms?.map((gym, index) => {
                   if (gym?.id === 0) return null;
                   return (
                     <tr key={gym?.id}>
-                      <th scope="row"> {gym?.id}</th>
+                      <th scope="row"> {index + 1}</th>
                       <td>{gym?.name} </td>
                       <td>{gym?.ownerName}</td>
                       <td>{gym?.parentName}</td>

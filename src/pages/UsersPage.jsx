@@ -13,7 +13,7 @@ export default function UsersPage() {
   const [userProfile, setUserProfile] = useState({});
 
   const { data: { users: usersData = [] } = {} } = useGetAPI(
-    "users",
+    "users?limit=20&offset=0&type=user",
     usersCount
   );
   const { data: { gyms: gymsData = [] } = {} } = useGetAPI("gyms");
@@ -63,7 +63,8 @@ export default function UsersPage() {
       password,
       phone,
       gender,
-      gym_id: Number(gymId),
+      gymId: Number(gymId),
+      isLead: false,
     };
     mutate(payload);
   };
@@ -91,6 +92,7 @@ export default function UsersPage() {
           <div className="customHeaderPg">
             <h2 className="title1">Users</h2>
             <button
+              ref={modalBtnRef}
               type="button"
               className="btn btn-primary btn-flat btn-pri btn-lg"
               data-toggle="modal"
@@ -113,27 +115,27 @@ export default function UsersPage() {
                   <i className="fa fa-arrow-left" aria-hidden="true"></i> Back
                 </button>
                 <div className="userProfilePg">
-                  <div className="formRow">
+                  <div className="formRow profileRow">
                     <b>Name:</b>
                     <p>{userProfile?.name}</p>
                   </div>
-                  <div className="formRow">
+                  <div className="formRow profileRow">
                     <b>Email:</b>
                     <p>{userProfile?.email}</p>
                   </div>
-                  <div className="formRow">
+                  <div className="formRow profileRow">
                     <b>Phone:</b>
                     <p>{userProfile?.phone}</p>
                   </div>
-                  <div className="formRow">
+                  <div className="formRow profileRow">
                     <b>Gender:</b>
                     <p>{userProfile?.gender}</p>
                   </div>
-                  <div className="formRow">
+                  <div className="formRow profileRow">
                     <b>Role:</b>
                     <p>{getRole(userProfile?.role)}</p>
                   </div>
-                  <div className="formRow">
+                  <div className="formRow profileRow">
                     <b>Gym:</b>
                     <p>{userProfile?.gymName}</p>
                   </div>

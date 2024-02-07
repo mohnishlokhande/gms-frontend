@@ -21,14 +21,6 @@ const protectedRoutes = [
       </div>
     ),
   },
-  // {
-  //   path: "/dashboard",
-  //   element: (
-  //     <div id="page-wrapper">
-  //       <div className="main-page">dashboard</div>
-  //     </div>
-  //   ),
-  // },
   { path: "/users", element: <UsersPage /> },
   { path: "/gym", element: <GymPage /> },
   {

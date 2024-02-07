@@ -14,27 +14,27 @@ export default function MyAccount() {
 
           <div className="panel-body widget-shadow">
             <div className="userProfilePg">
-              <div className="formRow">
+              <div className="formRow profileRow ">
                 <b>Name:</b>
                 <p>{account?.name}</p>
               </div>
-              <div className="formRow">
+              <div className="formRow profileRow">
                 <b>Email:</b>
                 <p>{account?.email}</p>
               </div>
-              <div className="formRow">
+              <div className="formRow profileRow">
                 <b>Phone:</b>
                 <p>{account?.phone}</p>
               </div>
-              <div className="formRow">
+              <div className="formRow profileRow">
                 <b>Gender:</b>
                 <p>{account?.gender}</p>
               </div>
-              <div className="formRow">
+              <div className="formRow profileRow">
                 <b>Role:</b>
                 <p>{getRole(account?.role)}</p>
               </div>
-              <div className="formRow">
+              <div className="formRow profileRow">
                 <b>Gym:</b>
                 <p>{account?.gymName}</p>
               </div>

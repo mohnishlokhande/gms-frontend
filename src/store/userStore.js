@@ -1,5 +1,4 @@
 import { create } from "zustand";
-import { devtools, persist } from "zustand/middleware";
 
 //user
 const accountStore = (set) => ({
@@ -9,9 +8,7 @@ const accountStore = (set) => ({
   },
 });
 
-export const useAccountStore = create(
-  devtools(persist(accountStore, { name: "account" }))
-);
+export const useAccountStore = create(accountStore);
 
 //users
 const UsersStore = (set) => ({
@@ -21,9 +18,7 @@ const UsersStore = (set) => ({
   },
 });
 
-export const useUsersStore = create(
-  devtools(persist(UsersStore, { name: "users" }))
-);
+export const useUsersStore = create(UsersStore);
 
 //for refetch
 const refetchStore = (set) => ({
