@@ -20,6 +20,15 @@ const UsersStore = (set) => ({
 
 export const useUsersStore = create(UsersStore);
 
+const UserProfileStore = (set) => ({
+  user: {},
+  setUser: (obj) => {
+    set({ user: obj });
+  },
+});
+
+export const useUserProfileStore = create(UserProfileStore);
+
 //for refetch
 const refetchStore = (set) => ({
   accountCount: 1,

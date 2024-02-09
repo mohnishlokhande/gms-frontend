@@ -100,7 +100,8 @@ export default function MembershipPage() {
               data-toggle="modal"
               data-target="#gridSystemModal"
             >
-              <i className="fa fa-plus" aria-hidden="true"></i> Add membership
+              <i className="fa fa-plus" aria-hidden="true"></i> Add new
+              membership
             </button>
           </div>
 

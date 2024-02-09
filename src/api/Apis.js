@@ -18,9 +18,15 @@ const useGetAPI = (endPoint, refetchCount = 1) => {
           },
         })
         .then((value) => {
-          // console.log("###a", value?.status);
           setData(value.data);
           setLoading(false);
+        })
+        .catch((error) => {
+          setLoading(false);
+          if (error?.response?.status === 401 && endPoint === "user") {
+            localStorage.clear();
+            window?.location?.reload();
+          }
         });
     }
   }, [refetchCount]);

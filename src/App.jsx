@@ -11,6 +11,7 @@ import GymPage from "./pages/GymPage";
 import MembershipPage from "./pages/MembershipPage";
 import LeadsPage from "./pages/LeadsPage";
 import MyAccount from "./pages/AccountPage";
+import UserProfile from "./pages/UserProfile";
 
 const protectedRoutes = [
   {
@@ -35,6 +36,10 @@ const protectedRoutes = [
     path: "/account",
     element: <MyAccount />,
   },
+  {
+    path: "/users/:id",
+    element: <UserProfile />,
+  },
 ];
 
 function App() {
@@ -42,7 +47,7 @@ function App() {
 
   const accountCount = useRefetchStore((state) => state.accountCount);
 
-  const { data: accountData = {} } = useGetAPI("user", accountCount);
+  const { data: accountData = {} } = useGetAPI("user", accountCount); 
   const updateAcc = useAccountStore((state) => state.setAccount);
 
   useEffect(() => {

@@ -1,16 +1,22 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useGetAPI, usePostAPI } from "../api/Apis";
-import { useRefetchStore, useUsersStore } from "../store/userStore";
+import {
+  useRefetchStore,
+  useUserProfileStore,
+  useUsersStore,
+} from "../store/userStore";
 import { getRole } from "../utils/helper";
 import { useForm } from "react-hook-form";
 import { useGymsStore } from "../store/secondaryStore";
+import { useNavigate } from "react-router-dom";
 
 export default function UsersPage() {
+  const navigate = useNavigate();
   const usersCount = useRefetchStore((state) => state.usersCount);
   const refetchUsers = useRefetchStore((state) => state.refetchUsers);
 
   const modalBtnRef = useRef(null);
-  const [userProfile, setUserProfile] = useState({});
+  const setUserProfile = useUserProfileStore((state) => state.setUser);
 
   const { data: { users: usersData = [] } = {} } = useGetAPI(
     "users?limit=20&offset=0&type=user",
@@ -103,148 +109,43 @@ export default function UsersPage() {
           </div>
 
           <div className="panel-body widget-shadow">
-            {userProfile?.id !== undefined ? (
-              <>
-                <button
-                  type="button"
-                  className="btn btn-sm"
-                  onClick={() => {
-                    setUserProfile({});
-                  }}
-                >
-                  <i className="fa fa-arrow-left" aria-hidden="true"></i> Back
-                </button>
-                <div className="userProfilePg">
-                  <div className="formRow profileRow">
-                    <b>Name:</b>
-                    <p>{userProfile?.name}</p>
-                  </div>
-                  <div className="formRow profileRow">
-                    <b>Email:</b>
-                    <p>{userProfile?.email}</p>
-                  </div>
-                  <div className="formRow profileRow">
-                    <b>Phone:</b>
-                    <p>{userProfile?.phone}</p>
-                  </div>
-                  <div className="formRow profileRow">
-                    <b>Gender:</b>
-                    <p>{userProfile?.gender}</p>
-                  </div>
-                  <div className="formRow profileRow">
-                    <b>Role:</b>
-                    <p>{getRole(userProfile?.role)}</p>
-                  </div>
-                  <div className="formRow profileRow">
-                    <b>Gym:</b>
-                    <p>{userProfile?.gymName}</p>
-                  </div>
-                </div>
-              </>
-            ) : (
-              <table className="table">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Role</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {users?.map((user) => {
-                    if (user?.id === 0) return null;
-                    return (
-                      <tr key={user?.id}>
-                        <th scope="row"> {user?.id}</th>
-                        <td>{user?.name} </td>
-                        <td>{user?.email}</td>
-                        <td>{getRole(user?.role)}</td>
-                        <td>
-                          <button
-                            type="button"
-                            className="btn btn-xs btn-default hvr-icon-grow fa-eye col-9"
-                            onClick={() => {
-                              setUserProfile(user);
-                            }}
-                          >
-                            View user profile{"   "}
-                          </button>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            )}
-          </div>
-
-          {/* <div
-            className="bs-example widget-shadow"
-            data-example-id="contextual-table"
-          >
-            <h4>Colored Rows Table:</h4>
             <table className="table">
-              {" "}
               <thead>
-                {" "}
                 <tr>
-                  {" "}
-                  <th>#</th> <th>Column heading</th> <th>Column heading</th>{" "}
-                  <th>Column heading</th>{" "}
-                </tr>{" "}
-              </thead>{" "}
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Role</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
               <tbody>
-                {" "}
-                <tr className="active">
-                  {" "}
-                  <th scope="row">1</th> <td>Column content</td>{" "}
-                  <td>Column content</td> <td>Column content</td>{" "}
-                </tr>{" "}
-                <tr>
-                  {" "}
-                  <th scope="row">2</th> <td>Column content</td>{" "}
-                  <td>Column content</td> <td>Column content</td>{" "}
-                </tr>{" "}
-                <tr className="success">
-                  {" "}
-                  <th scope="row">3</th> <td>Column content</td>{" "}
-                  <td>Column content</td> <td>Column content</td>{" "}
-                </tr>{" "}
-                <tr>
-                  {" "}
-                  <th scope="row">4</th> <td>Column content</td>{" "}
-                  <td>Column content</td> <td>Column content</td>{" "}
-                </tr>{" "}
-                <tr className="info">
-                  {" "}
-                  <th scope="row">5</th> <td>Column content</td>{" "}
-                  <td>Column content</td> <td>Column content</td>{" "}
-                </tr>{" "}
-                <tr>
-                  {" "}
-                  <th scope="row">6</th> <td>Column content</td>{" "}
-                  <td>Column content</td> <td>Column content</td>{" "}
-                </tr>{" "}
-                <tr className="warning">
-                  {" "}
-                  <th scope="row">7</th> <td>Column content</td>{" "}
-                  <td>Column content</td> <td>Column content</td>{" "}
-                </tr>{" "}
-                <tr>
-                  {" "}
-                  <th scope="row">8</th> <td>Column content</td>{" "}
-                  <td>Column content</td> <td>Column content</td>{" "}
-                </tr>{" "}
-                <tr className="danger">
-                  {" "}
-                  <th scope="row">9</th> <td>Column content</td>{" "}
-                  <td>Column content</td> <td>Column content</td>{" "}
-                </tr>{" "}
-              </tbody>{" "}
+                {users?.map((user) => {
+                  if (user?.id === 0) return null;
+                  return (
+                    <tr key={user?.id}>
+                      <th scope="row"> {user?.id}</th>
+                      <td>{user?.name} </td>
+                      <td>{user?.email}</td>
+                      <td>{getRole(user?.role)}</td>
+                      <td>
+                        <button
+                          type="button"
+                          className="btn btn-xs btn-default hvr-icon-grow fa-eye col-9"
+                          onClick={() => {
+                            setUserProfile(user);
+                            navigate(`/users/${user?.id}`);
+                          }}
+                        >
+                          View user profile{"   "}
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
             </table>
-          </div> */}
+          </div>
         </div>
       </div>
 

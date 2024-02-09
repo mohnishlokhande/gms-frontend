@@ -14,6 +14,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  width: 100%;
 }
 
 .loader {
@@ -39,7 +40,57 @@
   padding: 8px;
   border-radius: 4px;
 }
-
+.viewProfile {
+  display: flex;
+  padding: 1.5rem 4rem 0rem 1.5rem;
+  justify-content: space-between;
+}
+.viewProfile h4 {
+  color: grey;
+}
+.viewProfile p {
+  font-weight: 600;
+  padding-bottom: 4px;
+}
+.innerDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.innerDiv h3 {
+  font-weight: bold;
+  color: grey;
+}
+.datePicker {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+.main-page input[type="date"] {
+  font-size: 1rem;
+  padding: 1px 16px 1px 16px;
+  width: 100%;
+  color: #a8a8a8;
+  outline: none;
+  border: 1px solid #d3d3d3;
+  background: #ffffff;
+}
+.main-page input[type="date"]:focus {
+  border-color: #337ab7;
+}
+.datePicker input[type="text"] {
+  padding-top: 19px;
+  padding-bottom: 19px;
+}
+.add-membership-footer {
+  display: flex;
+  justify-content: center;
+}
+.add-membership-footer button {
+  margin-left: 1rem;
+}
 @keyframes spin {
   0% {
     transform: rotate(0deg);
