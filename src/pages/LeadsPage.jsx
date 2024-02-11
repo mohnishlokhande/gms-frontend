@@ -1,8 +1,8 @@
 import { useEffect, useRef } from "react";
 import { useGetAPI, usePostAPI } from "../api/Apis";
-import { useRefetchStore, useUsersStore } from "../store/userStore";
+import { useRefetchStore } from "../store/userStore";
 import { useForm } from "react-hook-form";
-import { useGymsStore } from "../store/secondaryStore";
+import { useGymsStore, useLeadsStore } from "../store/secondaryStore";
 
 export default function LeadsPage() {
   const usersCount = useRefetchStore((state) => state.usersCount);
@@ -23,8 +23,8 @@ export default function LeadsPage() {
     // formState: { errors },
   } = useForm();
 
-  const users = useUsersStore((state) => state.users);
-  const updateUsers = useUsersStore((state) => state.setUsers);
+  const leads = useLeadsStore((state) => state.leads);
+  const updateLeads = useLeadsStore((state) => state.setLeads);
   const gyms = useGymsStore((state) => state.gyms);
   const updateGyms = useGymsStore((state) => state.setGyms);
 
@@ -70,7 +70,7 @@ export default function LeadsPage() {
 
   useEffect(() => {
     if (usersData != undefined && Object.keys(usersData).length !== 0) {
-      updateUsers(usersData);
+      updateLeads(usersData);
     }
   }, [usersData]);
 
@@ -108,7 +108,7 @@ export default function LeadsPage() {
                 </tr>
               </thead>
               <tbody>
-                {users?.map((user) => {
+                {leads?.map((user) => {
                   if (user?.id === 0) return null;
                   return (
                     <tr key={user?.id}>
