@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useGetAPI, usePostAPI } from "../api/Apis";
 import { useRefetchStore } from "../store/userStore";
 import { useForm } from "react-hook-form";
@@ -8,7 +8,10 @@ export default function LeadsPage() {
   const usersCount = useRefetchStore((state) => state.usersCount);
   const refetchUsers = useRefetchStore((state) => state.refetchUsers);
 
+  const [selectLead, setSelectedLead] = useState(undefined);
+
   const modalBtnRef = useRef(null);
+  const upgradeModalBtnRef = useRef(null);
   useGetAPI("users?limit=20&offset=0&type=lead", "leads", usersCount);
   useGetAPI("gyms", "gyms");
 
@@ -19,7 +22,7 @@ export default function LeadsPage() {
 
   const name = watch("name");
   const email = watch("email");
-  const phone = watch("phone");
+  const phone = Number(watch("phone"));
   const gender = watch("gender");
   const gymId = watch("gymId");
 
@@ -40,6 +43,20 @@ export default function LeadsPage() {
     },
   });
 
+  const { mutate: mutateLead } = usePostAPI({
+    method: "patch",
+    endPoint: `users/${selectLead}`,
+    onSuccess: () => {
+      refetchUsers();
+      upgradeModalBtnRef?.current?.click();
+      setSelectedLead(undefined);
+    },
+    onError: (err) => {
+      console.log("###$@$", err);
+      setSelectedLead(undefined);
+    },
+  });
+
   const createUser = () => {
     const payload = {
       name,
@@ -54,8 +71,13 @@ export default function LeadsPage() {
     mutate(payload);
   };
 
-  const isDisable = name === "" || phone === "";
+  const isDisable = name === "" || phone === 0;
   email === "" || gender === null;
+
+  const upgradeLead = () => {
+    console.log("###", selectLead);
+    mutateLead({ isUpgradeToUser: true });
+  };
 
   return (
     <div id="page-wrapper">
@@ -83,18 +105,33 @@ export default function LeadsPage() {
                   <th>Email</th>
                   <th>Phone</th>
                   <th>Gender</th>
+                  <th>Convert</th>
                 </tr>
               </thead>
               <tbody>
-                {leads?.map((user) => {
+                {leads?.map((user, index) => {
                   if (user?.id === 0) return null;
                   return (
                     <tr key={user?.id}>
-                      <th scope="row"> {user?.id}</th>
+                      <th scope="row"> {index + 1}</th>
                       <td>{user?.name} </td>
                       <td>{user?.email}</td>
                       <td>{user?.role}</td>
                       <td>{user?.gender}</td>
+                      <td>
+                        <button
+                          ref={upgradeModalBtnRef}
+                          type="button"
+                          className="btn btn-xs btn-default hvr-icon-grow fa-handshake-o col-9"
+                          data-toggle="modal"
+                          data-target="#convertConfirm"
+                          onClick={() => {
+                            setSelectedLead(user?.id);
+                          }}
+                        >
+                          Convert to the user
+                        </button>
+                      </td>
                     </tr>
                   );
                 })}
@@ -104,6 +141,50 @@ export default function LeadsPage() {
         </div>
       </div>
 
+      <div
+        className="modal fade"
+        id="convertConfirm"
+        role="dialog"
+        aria-labelledby="convertConfirmLabel"
+      >
+        <div className="modal-dialog" role="document">
+          <div className="modal-content">
+            <div className="modal-header">
+              <button
+                type="button"
+                className="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h4 className="modal-title" id="convertConfirmLabel">
+                Convert to user
+              </h4>
+            </div>
+            <div className="modal-body">
+              Are you sure you want to convert this lead to user?
+            </div>
+            <div className="modal-footer">
+              <button
+                type="button"
+                className="btn btn-default"
+                data-dismiss="modal"
+              >
+                Close
+              </button>
+
+              <button
+                type="button"
+                className={`btn btn-warning`}
+                onClick={upgradeLead}
+              >
+                Yes, confirm
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
       <div
         className="modal fade"
         id="gridSystemModal"
@@ -153,7 +234,7 @@ export default function LeadsPage() {
                     <label htmlFor="exampleInputEmail1">Phone Number</label>
                     <input
                       {...register("phone", { required: true })}
-                      type="text"
+                      type="number"
                       className="form-control"
                       id="exampleInputPhone"
                       placeholder="Phone number"

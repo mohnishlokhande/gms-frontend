@@ -40,7 +40,7 @@ function EditUserModal({ modalBtnRef }) {
 
   const name = watch("name");
   const role = watch("role");
-  const phone = watch("phone");
+  const phone = Number(watch("phone"));
   const gymId = watch("gymId");
   const isDisable = false;
 
@@ -94,7 +94,7 @@ function EditUserModal({ modalBtnRef }) {
                   <label htmlFor="exampleInputEmail1">Phone Number</label>
                   <input
                     {...register("phone")}
-                    type="text"
+                    type="number"
                     className="form-control"
                     id="exampleInputPhone"
                     placeholder="Phone number"

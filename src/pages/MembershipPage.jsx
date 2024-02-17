@@ -93,11 +93,11 @@ export default function MembershipPage() {
                 </tr>
               </thead>
               <tbody>
-                {memberships?.map((membership) => {
+                {memberships?.map((membership, index) => {
                   if (membership?.id === 0) return null;
                   return (
                     <tr key={membership?.id}>
-                      <th scope="row"> {membership?.id}</th>
+                      <th scope="row"> {index + 1}</th>
                       <td>{membership?.name} </td>
                       <td>{membership?.gymName}</td>
                       <td>{Number(membership?.price) / 100}</td>

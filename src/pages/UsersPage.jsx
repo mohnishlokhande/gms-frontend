@@ -35,7 +35,7 @@ export default function UsersPage() {
   const password = watch("password");
   const email = watch("email");
   const role = watch("role");
-  const phone = watch("phone");
+  const phone = Number(watch("phone"));
   const gender = watch("gender");
   const gymId = watch("gymId");
 
@@ -71,7 +71,7 @@ export default function UsersPage() {
   };
 
   const isDisable =
-    name === "" || password === "" || phone === "" || gymId === "-1";
+    name === "" || password === "" || phone === 0 || gymId === "-1";
   email === "" || role === null || gender === null;
 
   return (
@@ -103,11 +103,11 @@ export default function UsersPage() {
                 </tr>
               </thead>
               <tbody>
-                {users?.map((user) => {
+                {users?.map((user, index) => {
                   if (user?.id === 0) return null;
                   return (
                     <tr key={user?.id}>
-                      <th scope="row"> {user?.id}</th>
+                      <th scope="row"> {index + 1}</th>
                       <td>{user?.name} </td>
                       <td>{user?.email}</td>
                       <td>{getRole(user?.role)}</td>
@@ -181,7 +181,7 @@ export default function UsersPage() {
                     <label htmlFor="exampleInputEmail1">Phone Number</label>
                     <input
                       {...register("phone", { required: true })}
-                      type="text"
+                      type="number"
                       className="form-control"
                       id="exampleInputPhone"
                       placeholder="Phone number"

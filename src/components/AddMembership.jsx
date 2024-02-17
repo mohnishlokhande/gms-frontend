@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useGetAPI, usePostAPI } from "../api/Apis";
 import { useMembershipsStore } from "../store/secondaryStore";
 import { useUserProfileStore } from "../store/userStore";
@@ -10,9 +9,6 @@ export default function AddMembership(props) {
   const { register, handleSubmit, watch } = useForm();
   const userProfile = useUserProfileStore((state) => state.user);
   const memberships = useMembershipsStore((state) => state.memberships);
-  const updateMemberships = useMembershipsStore(
-    (state) => state.setMemberships
-  );
 
   const membershipId = watch("membershipId");
   const startDate = watch("startDate");
@@ -21,10 +17,7 @@ export default function AddMembership(props) {
   const paymentMode = watch("paymentMode");
   const remark = watch("remark");
 
-  const { data: { memberships: membershipsData = [] } = {} } = useGetAPI(
-    "memberships",
-    "memberships"
-  );
+  useGetAPI("memberships", "memberships");
 
   const { mutate, isLoading } = usePostAPI({
     endPoint: `users/${userProfile?.id}/membership/add`,
@@ -53,15 +46,6 @@ export default function AddMembership(props) {
     paymentMode === "" ||
     startDate === "" ||
     amount === "";
-
-  useEffect(() => {
-    if (
-      membershipsData != undefined &&
-      Object.keys(membershipsData).length !== 0
-    ) {
-      updateMemberships(membershipsData);
-    }
-  }, [membershipsData]);
 
   return (
     <>
