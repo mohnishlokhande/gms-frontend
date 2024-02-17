@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { useGetAPI, usePostAPI } from "../api/Apis";
 import { useRefetchStore } from "../store/userStore";
 import { useForm } from "react-hook-form";
@@ -9,24 +9,13 @@ export default function LeadsPage() {
   const refetchUsers = useRefetchStore((state) => state.refetchUsers);
 
   const modalBtnRef = useRef(null);
+  useGetAPI("users?limit=20&offset=0&type=lead", "leads", usersCount);
+  useGetAPI("gyms", "gyms");
 
-  const { data: { users: usersData = [] } = {} } = useGetAPI(
-    "users?limit=20&offset=0&type=lead",
-    usersCount
-  );
-  const { data: { gyms: gymsData = [] } = {} } = useGetAPI("gyms");
-
-  const {
-    register,
-    handleSubmit,
-    watch,
-    // formState: { errors },
-  } = useForm();
+  const { register, handleSubmit, watch } = useForm();
 
   const leads = useLeadsStore((state) => state.leads);
-  const updateLeads = useLeadsStore((state) => state.setLeads);
   const gyms = useGymsStore((state) => state.gyms);
-  const updateGyms = useGymsStore((state) => state.setGyms);
 
   const name = watch("name");
   const email = watch("email");
@@ -67,18 +56,6 @@ export default function LeadsPage() {
 
   const isDisable = name === "" || phone === "";
   email === "" || gender === null;
-
-  useEffect(() => {
-    if (usersData != undefined && Object.keys(usersData).length !== 0) {
-      updateLeads(usersData);
-    }
-  }, [usersData]);
-
-  useEffect(() => {
-    if (gymsData != undefined && Object.keys(gymsData).length !== 0) {
-      updateGyms(gymsData);
-    }
-  }, [gymsData]);
 
   return (
     <div id="page-wrapper">

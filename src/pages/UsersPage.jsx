@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { useGetAPI, usePostAPI } from "../api/Apis";
 import {
   useRefetchStore,
@@ -18,11 +18,8 @@ export default function UsersPage() {
   const modalBtnRef = useRef(null);
   const setUserProfile = useUserProfileStore((state) => state.setUser);
 
-  const { data: { users: usersData = [] } = {} } = useGetAPI(
-    "users?limit=20&offset=0&type=user",
-    usersCount
-  );
-  const { data: { gyms: gymsData = [] } = {} } = useGetAPI("gyms");
+  useGetAPI("users?limit=20&offset=0&type=user", "users", usersCount);
+  useGetAPI("gyms", "gyms");
 
   const {
     register,
@@ -32,9 +29,7 @@ export default function UsersPage() {
   } = useForm();
 
   const users = useUsersStore((state) => state.users);
-  const updateUsers = useUsersStore((state) => state.setUsers);
   const gyms = useGymsStore((state) => state.gyms);
-  const updateGyms = useGymsStore((state) => state.setGyms);
 
   const name = watch("name");
   const password = watch("password");
@@ -78,18 +73,6 @@ export default function UsersPage() {
   const isDisable =
     name === "" || password === "" || phone === "" || gymId === "-1";
   email === "" || role === null || gender === null;
-
-  useEffect(() => {
-    if (usersData != undefined && Object.keys(usersData).length !== 0) {
-      updateUsers(usersData);
-    }
-  }, [usersData]);
-
-  useEffect(() => {
-    if (gymsData != undefined && Object.keys(gymsData).length !== 0) {
-      updateGyms(gymsData);
-    }
-  }, [gymsData]);
 
   return (
     <div id="page-wrapper">

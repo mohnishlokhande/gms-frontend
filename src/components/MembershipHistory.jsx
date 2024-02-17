@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useGetAPI } from "../api/Apis";
 import { useMembershipHistoryStore } from "../store/secondaryStore";
 import { getFormatDate } from "../utils/helper";
@@ -6,20 +5,8 @@ import PropTypes from "prop-types";
 
 export default function MembershipHistory({ id }) {
   const memberHistory = useMembershipHistoryStore((state) => state.history);
-  const setMemberHistory = useMembershipHistoryStore(
-    (state) => state.setHistory
-  );
 
-  console.log("###@", id);
-  const { data: { results: history = [], total = -1 } = {} } = useGetAPI(
-    `users/${id}/membership/history`
-  );
-
-  useEffect(() => {
-    if (history != undefined && total !== -1) {
-      setMemberHistory(history);
-    }
-  }, [history]);
+  useGetAPI(`users/${id}/membership/history`, "membershipHistory");
 
   return (
     <>

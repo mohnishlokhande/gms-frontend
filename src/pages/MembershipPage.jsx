@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { useGetAPI, usePostAPI } from "../api/Apis";
 import { useRefetchStore } from "../store/userStore";
 import { useForm } from "react-hook-form";
@@ -13,24 +13,12 @@ export default function MembershipPage() {
 
   const modalBtnRef = useRef(null);
 
-  const { data: { memberships: membershipsData = [] } = {} } = useGetAPI(
-    "memberships",
-    membershipCount
-  );
-  const { data: { gyms: gymsData = [] } = {} } = useGetAPI("gyms");
-  const {
-    register,
-    handleSubmit,
-    watch,
-    // formState: { errors },
-  } = useForm();
+  useGetAPI("memberships", "memberships", membershipCount);
+  useGetAPI("gyms", "gyms");
+  const { register, handleSubmit, watch } = useForm();
 
   const memberships = useMembershipsStore((state) => state.memberships);
-  const updateMemberships = useMembershipsStore(
-    (state) => state.setMemberships
-  );
   const gyms = useGymsStore((state) => state.gyms);
-  const updateGyms = useGymsStore((state) => state.setGyms);
 
   const name = watch("name");
   const price = watch("price");
@@ -71,21 +59,6 @@ export default function MembershipPage() {
   };
 
   const isDisable = name === "" || gymId === "-1" || price === "";
-
-  useEffect(() => {
-    if (
-      membershipsData != undefined &&
-      Object.keys(membershipsData).length !== 0
-    ) {
-      updateMemberships(membershipsData);
-    }
-  }, [membershipsData]);
-
-  useEffect(() => {
-    if (gymsData != undefined && Object.keys(gymsData).length !== 0) {
-      updateGyms(gymsData);
-    }
-  }, [gymsData]);
 
   return (
     <div id="page-wrapper">

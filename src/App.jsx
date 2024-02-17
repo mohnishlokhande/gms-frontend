@@ -4,8 +4,7 @@ import Login from "./pages/login/Login";
 import Signup from "./pages/signup/Signup";
 import PrivateRoute from "./components/PrivateRoute";
 import { useGetAPI } from "./api/Apis";
-import { useEffect } from "react";
-import { useAccountStore, useRefetchStore } from "./store/userStore";
+import { useRefetchStore } from "./store/userStore";
 import UsersPage from "./pages/UsersPage";
 import GymPage from "./pages/GymPage";
 import MembershipPage from "./pages/MembershipPage";
@@ -46,15 +45,7 @@ function App() {
   const isAuthenticated = localStorage.getItem("token");
 
   const accountCount = useRefetchStore((state) => state.accountCount);
-
-  const { data: accountData = {} } = useGetAPI("user", accountCount); 
-  const updateAcc = useAccountStore((state) => state.setAccount);
-
-  useEffect(() => {
-    if (accountData != undefined && Object.keys(accountData).length !== 0) {
-      updateAcc(accountData);
-    }
-  }, [accountData]);
+  useGetAPI("user", "account", accountCount);
 
   return (
     <>

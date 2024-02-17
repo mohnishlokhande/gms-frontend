@@ -21,8 +21,10 @@ export default function AddMembership(props) {
   const paymentMode = watch("paymentMode");
   const remark = watch("remark");
 
-  const { data: { memberships: membershipsData = [] } = {} } =
-    useGetAPI("memberships");
+  const { data: { memberships: membershipsData = [] } = {} } = useGetAPI(
+    "memberships",
+    "memberships"
+  );
 
   const { mutate, isLoading } = usePostAPI({
     endPoint: `users/${userProfile?.id}/membership/add`,
