@@ -61,15 +61,50 @@ export default function UserProfile() {
             </h3>
             <div className="viewProfile">
               <div>
-                <h4>Name</h4>
-                <p>{userProfile?.name}</p>
-                <h4>Contact</h4>
-                <p>{userProfile?.email}</p>
-                <p>{userProfile?.phone}</p>
+                <div className="rowCustom">
+                  <h4>Name:</h4>
+                  <p>{userProfile?.name}</p>
+                </div>
+                <div className="rowCustom">
+                  <h4>Contact:</h4>
+                  <p>{userProfile?.email}</p>
+                  {userProfile?.mobile !== 0 && (
+                    <>
+                      ,<p>{userProfile?.mobile}</p>
+                    </>
+                  )}
+                </div>
+                {userProfile?.dob !== "" && (
+                  <div className="rowCustom">
+                    <h4>Date of birth:</h4>
+                    <p>{userProfile?.dob}</p>{" "}
+                  </div>
+                )}
+                {userProfile?.gymName !== "" &&
+                  userProfile?.gymName !== undefined && (
+                    <div className="rowCustom">
+                      <h4>Gym:</h4>
+                      <p>{userProfile?.gymName}</p>{" "}
+                    </div>
+                  )}
               </div>
               <div>
-                <h4>Role</h4>
-                <p>{getRole(userProfile?.role)}</p>
+                <div className="rowCustom">
+                  <h4>Role:</h4>
+                  <p>{getRole(userProfile?.role)}</p>
+                </div>
+                {userProfile?.marriageAnniversary !== "" && (
+                  <div className="rowCustom">
+                    <h4>Marriage Anniversary:</h4>
+                    <p>{userProfile?.marriageAnniversary}</p>
+                  </div>
+                )}
+                {userProfile?.address !== "" && (
+                  <div className="rowCustom">
+                    <h4>Address:</h4>
+                    <p>{userProfile?.address}</p>
+                  </div>
+                )}
               </div>
             </div>
           </div>

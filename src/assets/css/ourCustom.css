@@ -52,6 +52,7 @@
 .viewProfile p {
   font-weight: 600;
   padding-bottom: 4px;
+  padding-left: 6px;
 }
 .innerDiv {
   display: flex;
@@ -69,7 +70,7 @@
   flex-direction: column;
   width: 50%;
 }
-.main-page input[type="date"] {
+.form-group input[type="date"] {
   font-size: 1rem;
   padding: 1px 16px 1px 16px;
   width: 100%;
@@ -78,7 +79,7 @@
   border: 1px solid #d3d3d3;
   background: #ffffff;
 }
-.main-page input[type="date"]:focus {
+.form-group input[type="date"]:focus {
   border-color: #337ab7;
 }
 .datePicker input[type="text"] {
@@ -122,6 +123,10 @@
 }
 .clickable:hover {
   color: #629aa9;
+}
+.rowCustom {
+  display: flex;
+  flex-wrap: wrap;
 }
 @keyframes spin {
   0% {

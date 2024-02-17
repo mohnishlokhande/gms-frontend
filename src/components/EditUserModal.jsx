@@ -42,6 +42,10 @@ function EditUserModal({ modalBtnRef }) {
   const role = watch("role");
   const phone = Number(watch("phone"));
   const gymId = watch("gymId");
+  const dob = watch("dob");
+  const marriageAnniversary = watch("marriageAnniversary");
+  const address = watch("address");
+
   const isDisable = false;
 
   const updateUser = () => {
@@ -50,6 +54,9 @@ function EditUserModal({ modalBtnRef }) {
       role: Number(role),
       phone,
       gymId: Number(gymId),
+      dob: dob,
+      marriageAnniversary: marriageAnniversary,
+      address: address,
     };
     mutate(payload);
   };
@@ -142,6 +149,37 @@ function EditUserModal({ modalBtnRef }) {
                     Admin
                   </label> */}
                   </div>
+                </div>
+
+                <div className="form-group formRow">
+                  <label className="control-label" style={{ width: "35%" }}>
+                    Dob
+                  </label>
+                  <input
+                    type="date"
+                    {...register("dob")}
+                    style={{ width: "65%" }}
+                  />
+                </div>
+                <div className="form-group formRow">
+                  <label className="control-label" style={{ width: "35%" }}>
+                    Marriage Anniversary
+                  </label>
+                  <input
+                    type="date"
+                    {...register("marriageAnniversary")}
+                    style={{ width: "65%" }}
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="exampleInputEmail1">Address</label>
+                  <input
+                    {...register("address")}
+                    type="text"
+                    className="form-control"
+                    id="exampleInputName"
+                    placeholder="Address"
+                  />
                 </div>
               </form>
             </div>
