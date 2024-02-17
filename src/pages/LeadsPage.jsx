@@ -87,6 +87,7 @@ export default function LeadsPage() {
           <div className="customHeaderPg">
             <h2 className="title1">Leads</h2>
             <button
+              ref={modalBtnRef}
               type="button"
               className="btn btn-primary btn-flat btn-pri btn-lg"
               data-toggle="modal"

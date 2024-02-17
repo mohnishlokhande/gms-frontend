@@ -22,7 +22,7 @@ export const useMembershipsStore = create(MembershipsStore);
 const LeadsStore = (set) => ({
   leads: [],
   setLeads: (list) => {
-    set({ users: list });
+    set({ leads: list });
   },
 });
 

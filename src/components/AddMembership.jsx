@@ -160,7 +160,7 @@ export default function AddMembership(props) {
           <button
             type="button"
             className="btn btn-default"
-            data-dismiss="modal"
+            onClick={() => setViewMemberhip(true)}
           >
             Close
           </button>

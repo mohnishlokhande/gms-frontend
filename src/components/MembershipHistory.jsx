@@ -1,25 +1,22 @@
 import { useEffect } from "react";
 import { useGetAPI } from "../api/Apis";
 import { useMembershipHistoryStore } from "../store/secondaryStore";
-import { useUserProfileStore } from "../store/userStore";
 import { getFormatDate } from "../utils/helper";
+import PropTypes from "prop-types";
 
-export default function MembershipHistory() {
-  const userProfile = useUserProfileStore((state) => state.user);
+export default function MembershipHistory({ id }) {
   const memberHistory = useMembershipHistoryStore((state) => state.history);
   const setMemberHistory = useMembershipHistoryStore(
     (state) => state.setHistory
   );
 
+  console.log("###@", id);
   const { data: { results: history = [], total = -1 } = {} } = useGetAPI(
-    `users/${userProfile?.id}/membership/history`
+    `users/${id}/membership/history`
   );
 
   useEffect(() => {
-    console.log("###a", history, total);
     if (history != undefined && total !== -1) {
-      console.log("###a", history, total);
-
       setMemberHistory(history);
     }
   }, [history]);
@@ -37,7 +34,7 @@ export default function MembershipHistory() {
           <div className="innerDiv" key={item?.id}>
             <div className="panel-body widget-shadow" style={{ width: "80%" }}>
               <div className="historyHeading">
-                <h3>{item?.membership_name}asddas</h3>
+                <h3 style={{ color: "#333" }}>{item?.membership_name}</h3>
                 {item?.is_active ? (
                   <h5 style={{ color: "green" }}> ACTIVE </h5>
                 ) : (
@@ -49,7 +46,7 @@ export default function MembershipHistory() {
                 <b>{getFormatDate(item?.end_date)}</b>
               </h6>
               <div className="historyAmount">
-                <p>Amount: </p> Rs {item?.amount}
+                <p>Amount: </p> Rs {item?.amount / 100}
               </div>
             </div>
           </div>
@@ -58,3 +55,7 @@ export default function MembershipHistory() {
     </>
   );
 }
+
+MembershipHistory.propTypes = {
+  id: PropTypes.string.isRequired,
+};

@@ -35,22 +35,21 @@ const useGetAPI = (endPoint, refetchCount = 1) => {
 };
 
 const usePostAPI = (config = {}) => {
-  // const [data, setData] = useState(undefined);
   const [isLoading, setLoading] = useState(false);
   const token = localStorage.getItem("token");
+  const { method = "post" } = config;
 
   const mutate = (payload) => {
     setLoading(true);
-    axios
-      .post(
-        `${baseURL}/${config?.endPoint}`,
-        { ...payload },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
+
+    axios({
+      method: method,
+      url: `${baseURL}/${config?.endPoint}`,
+      data: { ...payload },
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((value) => {
         config?.onSuccess(value);
         setLoading(false);
