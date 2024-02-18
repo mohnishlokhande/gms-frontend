@@ -5,8 +5,10 @@ import { getRole } from "../utils/helper";
 import MembershipHistory from "../components/MembershipHistory";
 import { useGetAPI } from "../api/Apis";
 import EditUserModal from "../components/EditUserModal";
+import { useNavigate } from "react-router-dom";
 
 export default function UserProfile() {
+  const navigate = useNavigate();
   const [viewMembership, setViewMemberhip] = useState(true);
   const userProfile = useUserProfileStore((state) => state.user);
   const [isModal, setIsModal] = useState(false);
@@ -27,21 +29,17 @@ export default function UserProfile() {
     <div id="page-wrapper">
       <div className="main-page">
         <div className="customHeaderPg">
-          <h2 className="title1">
-            <i className="fa fa-user-o" aria-hidden="true"></i> Member Profile
-          </h2>
-          {/* {!viewMembership && (
-            <button
-              type="button"
-              className="btn btn-sm"
+          <ol className="breadcrumb title1">
+            <li
+              className="clickable"
               onClick={() => {
-                // navigate(`/users`);
-                // setUserProfile({});
+                navigate("/users");
               }}
             >
-              <i className="fa fa-arrow-left" aria-hidden="true"></i> Back
-            </button>
-          )} */}
+              <p style={{ color: "#629aa9" }}>Users</p>
+            </li>
+            <li className="active">User Profile</li>
+          </ol>
         </div>
         <div className="innerDiv">
           <div className="panel-body widget-shadow" style={{ width: "80%" }}>
@@ -68,9 +66,9 @@ export default function UserProfile() {
                 <div className="rowCustom">
                   <h4>Contact:</h4>
                   <p>{userProfile?.email}</p>
-                  {userProfile?.mobile !== 0 && (
+                  {userProfile?.phone !== 0 && (
                     <>
-                      ,<p>{userProfile?.mobile}</p>
+                      ,<p>{userProfile?.phone}</p>
                     </>
                   )}
                 </div>
@@ -80,6 +78,18 @@ export default function UserProfile() {
                     <p>{userProfile?.dob}</p>{" "}
                   </div>
                 )}
+                {userProfile?.marriageAnniversary !== "" && (
+                  <div className="rowCustom">
+                    <h4>Marriage Anniversary:</h4>
+                    <p>{userProfile?.marriageAnniversary}</p>
+                  </div>
+                )}
+              </div>
+              <div>
+                <div className="rowCustom">
+                  <h4>Role:</h4>
+                  <p>{getRole(userProfile?.role)}</p>
+                </div>
                 {userProfile?.gymName !== "" &&
                   userProfile?.gymName !== undefined && (
                     <div className="rowCustom">
@@ -87,18 +97,6 @@ export default function UserProfile() {
                       <p>{userProfile?.gymName}</p>{" "}
                     </div>
                   )}
-              </div>
-              <div>
-                <div className="rowCustom">
-                  <h4>Role:</h4>
-                  <p>{getRole(userProfile?.role)}</p>
-                </div>
-                {userProfile?.marriageAnniversary !== "" && (
-                  <div className="rowCustom">
-                    <h4>Marriage Anniversary:</h4>
-                    <p>{userProfile?.marriageAnniversary}</p>
-                  </div>
-                )}
                 {userProfile?.address !== "" && (
                   <div className="rowCustom">
                     <h4>Address:</h4>

@@ -1,17 +1,23 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useGetAPI, usePostAPI } from "../api/Apis";
 import { useRefetchStore, useUsersStore } from "../store/userStore";
 import { useForm } from "react-hook-form";
 import { useGymsStore } from "../store/secondaryStore";
 import { getFormatDate } from "../utils/helper";
+import Pagination from "../components/layout/Pagination";
 
 export default function GymPage() {
   const gymCount = useRefetchStore((state) => state.gymCount);
   const refetchGyms = useRefetchStore((state) => state.refetchGyms);
 
   const modalBtnRef = useRef(null);
+  const [offset, setOffset] = useState(0);
 
-  useGetAPI("gyms", "gyms", gymCount);
+  const { data: { total: totalGyms = 0 } = {} } = useGetAPI(
+    `gyms?limit=20&offset=${offset}`,
+    "gyms",
+    gymCount
+  );
   useGetAPI("users", "users", 1);
   const { register, handleSubmit, watch } = useForm();
 
@@ -110,6 +116,7 @@ export default function GymPage() {
               </tbody>
             </table>
           </div>
+          <Pagination total={totalGyms} offset={offset} setOffset={setOffset} />
         </div>
       </div>
 

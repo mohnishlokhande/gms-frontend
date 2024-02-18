@@ -18,7 +18,7 @@ function EditUserModal({ modalBtnRef }) {
     defaultValues: {
       name: userProfile?.name,
       role: userProfile?.role?.toString(),
-      phone: userProfile?.phone,
+      phone: userProfile?.phone === 0 ? null : userProfile?.phone,
       gymId: userProfile?.gymId?.toString(),
       dob: userProfile?.dob,
       marriageAnniversary: userProfile?.marriageAnniversary,
@@ -65,7 +65,6 @@ function EditUserModal({ modalBtnRef }) {
     <div
       className="modal fade"
       id="gridSystemModal"
-      // zindex="-1"
       role="dialog"
       aria-labelledby="gridSystemModalLabel"
     >

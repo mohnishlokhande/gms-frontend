@@ -1,9 +1,10 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useGetAPI, usePostAPI } from "../api/Apis";
 import { useRefetchStore } from "../store/userStore";
 import { useForm } from "react-hook-form";
 import { useGymsStore, useMembershipsStore } from "../store/secondaryStore";
 import { getFormatDate } from "../utils/helper";
+import Pagination from "../components/layout/Pagination";
 
 export default function MembershipPage() {
   const membershipCount = useRefetchStore((state) => state.membershipCount);
@@ -12,8 +13,13 @@ export default function MembershipPage() {
   );
 
   const modalBtnRef = useRef(null);
+  const [offset, setOffset] = useState(0);
 
-  useGetAPI("memberships", "memberships", membershipCount);
+  const { data: { total: totalMembership = 0 } = {} } = useGetAPI(
+    `memberships?limit=20&offset=${offset}`,
+    "memberships",
+    membershipCount
+  );
   useGetAPI("gyms", "gyms");
   const { register, handleSubmit, watch } = useForm();
 
@@ -111,6 +117,11 @@ export default function MembershipPage() {
               </tbody>
             </table>
           </div>
+          <Pagination
+            total={totalMembership}
+            offset={offset}
+            setOffset={setOffset}
+          />
         </div>
       </div>
       <div

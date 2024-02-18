@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useGetAPI, usePostAPI } from "../api/Apis";
 import {
   useRefetchStore,
@@ -9,16 +9,24 @@ import { getRole } from "../utils/helper";
 import { useForm } from "react-hook-form";
 import { useGymsStore } from "../store/secondaryStore";
 import { useNavigate } from "react-router-dom";
+import Pagination from "../components/layout/Pagination";
 
 export default function UsersPage() {
   const navigate = useNavigate();
   const usersCount = useRefetchStore((state) => state.usersCount);
   const refetchUsers = useRefetchStore((state) => state.refetchUsers);
 
+  const [offset, setOffset] = useState(0);
+
   const modalBtnRef = useRef(null);
   const setUserProfile = useUserProfileStore((state) => state.setUser);
 
-  useGetAPI("users?limit=20&offset=0&type=user", "users", usersCount);
+  const { data: { total: totalUsers = 0 } = {} } = useGetAPI(
+    `users?limit=20&offset=${offset}&type=user`,
+    "users",
+    usersCount
+  );
+
   useGetAPI("gyms", "gyms");
 
   const {
@@ -129,9 +137,13 @@ export default function UsersPage() {
               </tbody>
             </table>
           </div>
+          <Pagination
+            total={totalUsers}
+            offset={offset}
+            setOffset={setOffset}
+          />
         </div>
       </div>
-
       <div
         className="modal fade"
         id="gridSystemModal"

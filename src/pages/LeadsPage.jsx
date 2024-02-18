@@ -3,16 +3,22 @@ import { useGetAPI, usePostAPI } from "../api/Apis";
 import { useRefetchStore } from "../store/userStore";
 import { useForm } from "react-hook-form";
 import { useGymsStore, useLeadsStore } from "../store/secondaryStore";
+import Pagination from "../components/layout/Pagination";
 
 export default function LeadsPage() {
   const usersCount = useRefetchStore((state) => state.usersCount);
   const refetchUsers = useRefetchStore((state) => state.refetchUsers);
 
   const [selectLead, setSelectedLead] = useState(undefined);
+  const [offset, setOffset] = useState(0);
 
   const modalBtnRef = useRef(null);
   const upgradeModalBtnRef = useRef(null);
-  useGetAPI("users?limit=20&offset=0&type=lead", "leads", usersCount);
+  const { data: { total: totalLeads = 0 } = {} } = useGetAPI(
+    `users?limit=20&offset=${offset}&type=lead`,
+    "leads",
+    usersCount
+  );
   useGetAPI("gyms", "gyms");
 
   const { register, handleSubmit, watch } = useForm();
@@ -138,6 +144,11 @@ export default function LeadsPage() {
               </tbody>
             </table>
           </div>
+          <Pagination
+            total={totalLeads}
+            offset={offset}
+            setOffset={setOffset}
+          />
         </div>
       </div>
 

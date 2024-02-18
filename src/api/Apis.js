@@ -73,7 +73,7 @@ const useGetAPI = (endPoint, type = undefined, refetchCount = 1) => {
           }
         });
     }
-  }, [refetchCount]);
+  }, [refetchCount, endPoint]);
 
   return { isLoading, data };
 };

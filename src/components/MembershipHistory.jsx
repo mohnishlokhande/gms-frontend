@@ -16,6 +16,16 @@ export default function MembershipHistory({ id }) {
         </div>
       </div>
 
+      {(memberHistory?.length === 0 ||
+        memberHistory === null ||
+        memberHistory === undefined) && (
+        <div className="innerDiv">
+          <div className="panel-body widget-shadow" style={{ width: "80%" }}>
+            No membership found
+          </div>
+        </div>
+      )}
+
       {memberHistory?.map((item) => {
         return (
           <div className="innerDiv" key={item?.id}>
