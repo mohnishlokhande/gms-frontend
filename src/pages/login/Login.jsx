@@ -2,16 +2,20 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useRefetchStore } from "../../store/userStore";
+import { useEffect, useState } from "react";
 
 const Login = () => {
   const navigate = useNavigate();
   const refetchAccount = useRefetchStore((state) => state.refetchAccount);
 
+  const [isError, setIsError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
   const {
     register,
     handleSubmit,
     watch,
-    // formState: { errors },
+    formState: { errors },
   } = useForm();
 
   const email = watch("email");
@@ -24,24 +28,33 @@ const Login = () => {
 
   const handleLogin = async () => {
     try {
+      setIsLoading(true);
       const response = await axios.post("http://localhost:8080/user/login", {
         email,
         password,
       });
 
-      console.log("Login response:", response);
-
       const { token } = response.data;
       localStorage.setItem("token", token);
       navigate("/");
       refetchAccount();
+      setIsLoading(false);
     } catch (error) {
+      setIsError(true);
+      // alert("Login failed", error);
       console.error("Login failed", error);
       console.error("Login failed. Please check your credentials.");
+      setIsLoading(false);
     }
   };
-  const isAuthenticated = localStorage.getItem("token");
-  console.log("###", isAuthenticated);
+
+  useEffect(() => {
+    if (email && password) {
+      setIsError(false);
+    }
+  }, [email, password]);
+
+  console.log("####@@@", errors, isError, isLoading);
 
   return (
     <div id="page-wrapper" style={{ height: "100vh" }}>
@@ -51,37 +64,42 @@ const Login = () => {
           <div className="login-body">
             <form onSubmit={handleSubmit(onSubmit)}>
               <input
-                {...register("email", { required: true })}
+                {...register("email", { required: "true" })}
                 type="email"
                 className="user"
                 placeholder="Enter Your Email"
+                aria-invalid={errors.email ? "true" : "false"}
               />
+              {errors.email?.type === "required" && (
+                <p role="alert">First name is required</p>
+              )}
               <input
                 type="password"
                 {...register("password", { required: true })}
                 className="lock"
                 placeholder="Password"
               />
-              {/* <div className="forgot-grid">
-                <label className="checkbox">
-                  <input
-                    type="checkbox"
-                    {...register("checkbox", { required: false })}
-                  />
-                  <i></i>Remember me
-                </label>
-                <div className="forgot">
-                  <a href="#">forgot password?</a>
-                </div>
-                <div className="clearfix"> </div>
-              </div> */}
-              <input type="submit" value="Sign In" />
-              {/* <div className="registration">
-                Do not have an account ?
-                <a className="" href="signup.html">
-                  Create an account
-                </a>
-              </div> */}
+
+              {isError && (
+                <div style={{ color: "#ff0000a1" }}>Invalid credentials</div>
+              )}
+
+              <div
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <button
+                  type="submit"
+                  className={`btn btn-warning ${
+                    (isError || isLoading) && "disabled"
+                  }`}
+                >
+                  {isLoading ? <div className="loader" /> : <>Sign In </>}
+                </button>
+              </div>
             </form>
           </div>
         </div>

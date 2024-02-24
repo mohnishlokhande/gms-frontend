@@ -36,7 +36,7 @@ export default function GymPage() {
     }
   };
 
-  const { mutate } = usePostAPI({
+  const { mutate, isLoading: isAddGymLoading } = usePostAPI({
     endPoint: "gym",
     onSuccess: () => {
       refetchGyms();
@@ -66,7 +66,11 @@ export default function GymPage() {
   };
 
   const isDisable =
-    name === "" || address === "" || isHeadOffice === null || parent === -1;
+    isAddGymLoading === true ||
+    name === "" ||
+    address === "" ||
+    isHeadOffice === null ||
+    parent === -1;
 
   return (
     <div id="page-wrapper">
@@ -249,7 +253,7 @@ export default function GymPage() {
                 className={`btn btn-warning ${isDisable && "disabled"}`}
                 onClick={createGym}
               >
-                Submit
+                {isAddGymLoading ? <div className="loader" /> : <>Submit </>}
               </button>
             </div>
           </div>

@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import AddMembership from "../components/AddMembership";
-import { useUserProfileStore } from "../store/userStore";
+import { useRefetchStore, useUserProfileStore } from "../store/userStore";
 import { getRole } from "../utils/helper";
 import MembershipHistory from "../components/MembershipHistory";
 import { useGetAPI } from "../api/Apis";
@@ -11,6 +11,7 @@ export default function UserProfile() {
   const navigate = useNavigate();
   const [viewMembership, setViewMemberhip] = useState(true);
   const userProfile = useUserProfileStore((state) => state.user);
+  const userCount = useRefetchStore((state) => state.userCount);
   const [isModal, setIsModal] = useState(false);
 
   let id = undefined;
@@ -22,7 +23,7 @@ export default function UserProfile() {
 
   const modalBtnRef = useRef(null);
 
-  useGetAPI(`user/${id}`, "user");
+  useGetAPI(`user/${id}`, "user", userCount);
   useGetAPI("gyms", "gyms");
 
   return (

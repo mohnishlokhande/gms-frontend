@@ -49,7 +49,7 @@ export default function LeadsPage() {
     },
   });
 
-  const { mutate: mutateLead } = usePostAPI({
+  const { mutate: mutateLead, isLoading: isAddLeadLoading } = usePostAPI({
     method: "patch",
     endPoint: `users/${selectLead}`,
     onSuccess: () => {
@@ -77,11 +77,10 @@ export default function LeadsPage() {
     mutate(payload);
   };
 
-  const isDisable = name === "" || phone === 0;
+  const isDisable = isAddLeadLoading === true || name === "" || phone === 0;
   email === "" || gender === null;
 
   const upgradeLead = () => {
-    console.log("###", selectLead);
     mutateLead({ isUpgradeToUser: true });
   };
 
@@ -315,7 +314,7 @@ export default function LeadsPage() {
                 className={`btn btn-warning ${isDisable && "disabled"}`}
                 onClick={createUser}
               >
-                Submit
+                {isAddLeadLoading ? <div className="loader" /> : <>Submit </>}
               </button>
             </div>
           </div>

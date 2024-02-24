@@ -26,7 +26,7 @@ function EditUserModal({ modalBtnRef }) {
     },
   });
 
-  const { mutate } = usePostAPI({
+  const { mutate, isLoading } = usePostAPI({
     method: "patch",
     endPoint: `users/${userProfile?.id}`,
     onSuccess: () => {
@@ -45,8 +45,6 @@ function EditUserModal({ modalBtnRef }) {
   const dob = watch("dob");
   const marriageAnniversary = watch("marriageAnniversary");
   const address = watch("address");
-
-  const isDisable = false;
 
   const updateUser = () => {
     const payload = {
@@ -191,19 +189,13 @@ function EditUserModal({ modalBtnRef }) {
             >
               Close
             </button>
-            {/* {0 ? (
-            <div>
-              <div className="loader" />
-            </div>
-          ) : ( */}
             <button
               type="button"
-              className={`btn btn-warning ${isDisable && "disabled"}`}
+              className={`btn btn-warning ${isLoading && "disabled"}`}
               onClick={updateUser}
             >
-              Submit
+              {isLoading ? <div className="loader" /> : <>Submit </>}
             </button>
-            {/* )} */}
           </div>
         </div>
       </div>

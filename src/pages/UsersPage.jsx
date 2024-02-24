@@ -33,6 +33,7 @@ export default function UsersPage() {
     register,
     handleSubmit,
     watch,
+    reset,
     // formState: { errors },
   } = useForm();
 
@@ -50,10 +51,11 @@ export default function UsersPage() {
   const toogleModal = () => {
     if (modalBtnRef.current) {
       modalBtnRef.current.click();
+      reset();
     }
   };
 
-  const { mutate } = usePostAPI({
+  const { mutate, isLoading: isAddUserLoading = false } = usePostAPI({
     endPoint: "user/signup",
     onSuccess: () => {
       refetchUsers();
@@ -80,7 +82,7 @@ export default function UsersPage() {
 
   const isDisable =
     name === "" || password === "" || phone === 0 || gymId === "-1";
-  email === "" || role === null || gender === null;
+  email === "" || role === null || gender === null || isAddUserLoading === true;
 
   return (
     <div id="page-wrapper">
@@ -240,10 +242,6 @@ export default function UsersPage() {
                         <input type="radio" value="3" {...register("role")} />
                         Admin
                       </label>
-                      <label>
-                        <input type="radio" value="4" {...register("role")} />
-                        Super Admin
-                      </label>
                     </div>
                   </div>
 
@@ -293,19 +291,13 @@ export default function UsersPage() {
               >
                 Close
               </button>
-              {/* {0 ? (
-                <div>
-                  <div className="loader" />
-                </div>
-              ) : ( */}
               <button
                 type="button"
                 className={`btn btn-warning ${isDisable && "disabled"}`}
                 onClick={createUser}
               >
-                Submit
+                {isAddUserLoading ? <div className="loader" /> : <>Submit </>}
               </button>
-              {/* )} */}
             </div>
           </div>
         </div>

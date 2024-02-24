@@ -39,7 +39,7 @@ export default function MembershipPage() {
     }
   };
 
-  const { mutate } = usePostAPI({
+  const { mutate, isLoading: isAddMembershipLoading } = usePostAPI({
     endPoint: "membership",
     onSuccess: () => {
       refetchMemberships();
@@ -64,7 +64,11 @@ export default function MembershipPage() {
     mutate(payload);
   };
 
-  const isDisable = name === "" || gymId === "-1" || price === "";
+  const isDisable =
+    isAddMembershipLoading === true ||
+    name === "" ||
+    gymId === "-1" ||
+    price === "";
 
   return (
     <div id="page-wrapper">
@@ -248,7 +252,11 @@ export default function MembershipPage() {
                 className={`btn btn-warning ${isDisable && "disabled"}`}
                 onClick={createMembership}
               >
-                Submit
+                {isAddMembershipLoading ? (
+                  <div className="loader" />
+                ) : (
+                  <>Submit </>
+                )}
               </button>
             </div>
           </div>

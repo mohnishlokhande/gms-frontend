@@ -42,6 +42,7 @@ export default function AddMembership(props) {
   };
 
   const isDisable =
+    isLoading ||
     membershipId === -1 ||
     paymentMode === "" ||
     startDate === "" ||
@@ -150,19 +151,13 @@ export default function AddMembership(props) {
           >
             Close
           </button>
-          {isLoading ? (
-            <div className="col-md-1">
-              <div className="loader" />
-            </div>
-          ) : (
-            <button
-              type="button"
-              className={`btn btn-warning ${isDisable && "disabled"}`}
-              onClick={addMembership}
-            >
-              Submit
-            </button>
-          )}
+          <button
+            type="button"
+            className={`btn btn-warning ${isDisable && "disabled"}`}
+            onClick={addMembership}
+          >
+            {isLoading ? <div className="loader" /> : <>Submit </>}
+          </button>
         </div>
       </div>
     </>
