@@ -38,6 +38,14 @@ const protectedRoutes = [
     path: "/users/:id",
     element: <UserProfile />,
   },
+  {
+    path: "/users/active",
+    element: <UsersPage status="active" />,
+  },
+  {
+    path: "/users/inactive",
+    element: <UsersPage status="inactive" />,
+  },
 ];
 
 function App() {

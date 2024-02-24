@@ -80,9 +80,7 @@ const Login = () => {
                 placeholder="Password"
               />
 
-              {isError && (
-                <div style={{ color: "#ff0000a1" }}>Invalid credentials</div>
-              )}
+              {isError && <div className="errorText">Invalid credentials</div>}
 
               <div
                 style={{

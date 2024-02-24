@@ -19,20 +19,25 @@ export default function GymPage() {
     gymCount
   );
   useGetAPI("users", "users", 1);
-  const { register, handleSubmit, watch } = useForm();
+  const { register, handleSubmit, watch, reset } = useForm({
+    defaultValues: {
+      isHeadOffice: "1",
+    },
+  });
 
   const gyms = useGymsStore((state) => state.gyms);
   const users = useUsersStore((state) => state.users);
 
   const name = watch("name");
   const address = watch("address");
-  const isHeadOffice = watch("isHeadOffice");
+  const isHeadOffice = Number(watch("isHeadOffice"));
   const parent = watch("parent");
   const owner = watch("owner");
 
   const toogleModal = () => {
     if (modalBtnRef.current) {
       modalBtnRef.current.click();
+      reset();
     }
   };
 
@@ -51,12 +56,12 @@ export default function GymPage() {
   const createGym = () => {
     let payload = {
       name,
-      is_head_office: Number(isHeadOffice) ? true : false,
+      is_head_office: isHeadOffice ? true : false,
       address,
       parent_id: Number(parent),
       owner_id: Number(owner),
     };
-    if (parent !== "-1") {
+    if (!isHeadOffice && parent !== "-1" && parent !== undefined) {
       payload = { ...payload, parent_id: Number(parent) };
     }
     if (owner !== "-1") {
@@ -69,8 +74,8 @@ export default function GymPage() {
     isAddGymLoading === true ||
     name === "" ||
     address === "" ||
-    isHeadOffice === null ||
-    parent === -1;
+    owner === -1 ||
+    (isHeadOffice === 0 && (parent === undefined || parent === -1));
 
   return (
     <div id="page-wrapper">
@@ -175,7 +180,7 @@ export default function GymPage() {
                       <div>
                         <input
                           type="radio"
-                          value="1"
+                          value={1}
                           {...register("isHeadOffice")}
                         />
                         True
@@ -183,7 +188,7 @@ export default function GymPage() {
                       <div>
                         <input
                           type="radio"
-                          value="0"
+                          value={0}
                           {...register("isHeadOffice")}
                         />
                         False
@@ -215,28 +220,29 @@ export default function GymPage() {
                       </select>
                     </div>
                   </div>
-
-                  <div className="form-group formRow">
-                    <label className="control-label" style={{ width: "25%" }}>
-                      Select parent gym
-                    </label>
-                    <div style={{ width: "75%" }}>
-                      <select
-                        multiple=""
-                        className="form-control1"
-                        {...register("parent")}
-                      >
-                        <option value={-1}>None</option>
-                        {gyms?.map((gym) => {
-                          return (
-                            <option value={gym?.id} key={gym?.id}>
-                              {gym?.name}
-                            </option>
-                          );
-                        })}
-                      </select>
+                  {!isHeadOffice && (
+                    <div className="form-group formRow">
+                      <label className="control-label" style={{ width: "25%" }}>
+                        Select parent gym
+                      </label>
+                      <div style={{ width: "75%" }}>
+                        <select
+                          multiple=""
+                          className="form-control1"
+                          {...register("parent")}
+                        >
+                          <option value={-1}>None</option>
+                          {gyms?.map((gym) => {
+                            return (
+                              <option value={gym?.id} key={gym?.id}>
+                                {gym?.name}
+                              </option>
+                            );
+                          })}
+                        </select>
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </form>
               </div>
             </div>

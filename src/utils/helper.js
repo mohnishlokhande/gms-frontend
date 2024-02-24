@@ -10,3 +10,12 @@ export const getFormatDate = (date) => {
     temp.getDate() + "/" + (temp.getMonth() + 1) + "/" + temp.getFullYear()
   );
 };
+
+export function increaseDate(originalDate, days, months, years) {
+  const newDate = new Date(originalDate);
+  newDate.setDate(newDate.getDate() + days);
+  newDate.setMonth(newDate.getMonth() + months);
+  newDate.setFullYear(newDate.getFullYear() + years);
+
+  return newDate.toISOString().split("T")[0];
+}

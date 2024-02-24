@@ -3,14 +3,16 @@ import { useMembershipsStore } from "../store/secondaryStore";
 import { useUserProfileStore } from "../store/userStore";
 import { useForm } from "react-hook-form";
 import PropTypes from "prop-types";
+import { useEffect } from "react";
+import { increaseDate } from "../utils/helper";
 
 export default function AddMembership(props) {
   const { setViewMemberhip } = props;
-  const { register, handleSubmit, watch } = useForm();
+  const { register, handleSubmit, watch, setValue } = useForm();
   const userProfile = useUserProfileStore((state) => state.user);
   const memberships = useMembershipsStore((state) => state.memberships);
 
-  const membershipId = watch("membershipId");
+  const membershipId = Number(watch("membershipId"));
   const startDate = watch("startDate");
   const endDate = watch("endDate");
   const amount = watch("amount");
@@ -31,7 +33,7 @@ export default function AddMembership(props) {
 
   const addMembership = () => {
     const payload = {
-      membershipId: Number(membershipId),
+      membershipId: membershipId,
       paymentMethod: paymentMode,
       startDate: startDate,
       endDate: endDate,
@@ -42,11 +44,23 @@ export default function AddMembership(props) {
   };
 
   const isDisable =
-    isLoading ||
-    membershipId === -1 ||
-    paymentMode === "" ||
-    startDate === "" ||
-    amount === "";
+    isLoading || membershipId === -1 || paymentMode === "" || startDate === "";
+
+  useEffect(() => {
+    if (membershipId) {
+      let findMembership = memberships.find((mem) => {
+        return mem?.id === membershipId;
+      });
+      setValue("amount", findMembership?.price / 100);
+
+      if (startDate) {
+        const day = findMembership?.billingDay;
+        const month = findMembership?.billingMonth;
+        const year = findMembership?.billingYear;
+        setValue("endDate", increaseDate(startDate, day, month, year));
+      }
+    }
+  }, [membershipId, startDate]);
 
   return (
     <>
@@ -84,7 +98,7 @@ export default function AddMembership(props) {
                 </div>
                 <div className="datePicker">
                   <label className="control-label">End date</label>
-                  <input type="date" {...register("endDate")} />
+                  <input type="date" {...register("endDate")} disabled />
                 </div>
               </div>
             </form>
@@ -107,7 +121,8 @@ export default function AddMembership(props) {
                   {...register("amount", { required: true })}
                   type="number"
                   className="form-control"
-                  placeholder="Enter amount"
+                  placeholder="Amount"
+                  disabled
                 />
               </div>
               <div className="formRow">

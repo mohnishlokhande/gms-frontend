@@ -1,4 +1,5 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import PropTypes from "prop-types";
 import { useGetAPI, usePostAPI } from "../api/Apis";
 import {
   useRefetchStore,
@@ -11,7 +12,7 @@ import { useGymsStore } from "../store/secondaryStore";
 import { useNavigate } from "react-router-dom";
 import Pagination from "../components/layout/Pagination";
 
-export default function UsersPage() {
+export default function UsersPage({ status = "" }) {
   const navigate = useNavigate();
   const usersCount = useRefetchStore((state) => state.usersCount);
   const refetchUsers = useRefetchStore((state) => state.refetchUsers);
@@ -20,22 +21,19 @@ export default function UsersPage() {
 
   const modalBtnRef = useRef(null);
   const setUserProfile = useUserProfileStore((state) => state.setUser);
+  const [apiErrors, setApiErrors] = useState({});
 
   const { data: { total: totalUsers = 0 } = {} } = useGetAPI(
-    `users?limit=20&offset=${offset}&type=user`,
+    `users?limit=20&offset=${offset}&type=user${
+      status !== "" ? `&membershipStatus=${status}` : ""
+    }`,
     "users",
     usersCount
   );
 
   useGetAPI("gyms", "gyms");
 
-  const {
-    register,
-    handleSubmit,
-    watch,
-    reset,
-    // formState: { errors },
-  } = useForm();
+  const { register, handleSubmit, watch, reset } = useForm();
 
   const users = useUsersStore((state) => state.users);
   const gyms = useGymsStore((state) => state.gyms);
@@ -52,6 +50,7 @@ export default function UsersPage() {
     if (modalBtnRef.current) {
       modalBtnRef.current.click();
       reset();
+      setApiErrors({});
     }
   };
 
@@ -62,7 +61,8 @@ export default function UsersPage() {
       toogleModal();
     },
     onError: (err) => {
-      console.log("###$@$", err);
+      console.log("###$@$", err, err?.data?.validationErrors);
+      setApiErrors(err?.data?.validationErrors);
     },
   });
 
@@ -81,8 +81,33 @@ export default function UsersPage() {
   };
 
   const isDisable =
-    name === "" || password === "" || phone === 0 || gymId === "-1";
-  email === "" || role === null || gender === null || isAddUserLoading === true;
+    name === "" ||
+    password === "" ||
+    phone === 0 ||
+    gymId === "-1" ||
+    email === "" ||
+    role === null ||
+    gender === null ||
+    isAddUserLoading === true ||
+    apiErrors?.email !== undefined ||
+    apiErrors?.phone !== undefined ||
+    apiErrors?.password !== undefined;
+
+  useEffect(() => {
+    if (email && apiErrors?.email) {
+      setApiErrors({ ...apiErrors, email: undefined });
+    }
+  }, [email]);
+  useEffect(() => {
+    if (phone && apiErrors?.phone) {
+      setApiErrors({ ...apiErrors, phone: undefined });
+    }
+  }, [phone]);
+  useEffect(() => {
+    if (password && apiErrors?.password) {
+      setApiErrors({ ...apiErrors, password: undefined });
+    }
+  }, [password]);
 
   return (
     <div id="page-wrapper">
@@ -90,15 +115,17 @@ export default function UsersPage() {
         <div className="tables">
           <div className="customHeaderPg">
             <h2 className="title1">Users</h2>
-            <button
-              ref={modalBtnRef}
-              type="button"
-              className="btn btn-primary btn-flat btn-pri btn-lg"
-              data-toggle="modal"
-              data-target="#gridSystemModal"
-            >
-              <i className="fa fa-plus" aria-hidden="true"></i> Add user
-            </button>
+            {status === "" && (
+              <button
+                ref={modalBtnRef}
+                type="button"
+                className="btn btn-primary btn-flat btn-pri btn-lg"
+                data-toggle="modal"
+                data-target="#gridSystemModal"
+              >
+                <i className="fa fa-plus" aria-hidden="true"></i> Add user
+              </button>
+            )}
           </div>
 
           <div className="panel-body widget-shadow">
@@ -190,6 +217,9 @@ export default function UsersPage() {
                       id="exampleInputEmail1"
                       placeholder="Email"
                     />
+                    {apiErrors?.email && (
+                      <div className="errorText">Invalid email</div>
+                    )}
                   </div>
                   <div className="form-group">
                     <label htmlFor="exampleInputEmail1">Phone Number</label>
@@ -200,8 +230,10 @@ export default function UsersPage() {
                       id="exampleInputPhone"
                       placeholder="Phone number"
                     />
+                    {apiErrors?.phone && (
+                      <div className="errorText">Invalid phone number</div>
+                    )}
                   </div>
-
                   <div className="form-group formRow">
                     <label className="control-label" style={{ width: "25%" }}>
                       Select Gym
@@ -225,7 +257,6 @@ export default function UsersPage() {
                       </select>
                     </div>
                   </div>
-
                   <div className="form-group formRow">
                     <h4>Role :</h4>
 
@@ -244,7 +275,6 @@ export default function UsersPage() {
                       </label>
                     </div>
                   </div>
-
                   <div className="formRow form-group">
                     <h4>Gender* :</h4>
                     <div>
@@ -267,7 +297,6 @@ export default function UsersPage() {
                     </div>
                     <div className="clearfix"> </div>
                   </div>
-
                   <div className="form-group">
                     <label htmlFor="exampleInputPassword1">
                       Create password
@@ -279,6 +308,9 @@ export default function UsersPage() {
                       id="exampleInputPassword1"
                       placeholder="Create password"
                     />
+                    {apiErrors?.password && (
+                      <div className="errorText">Weak password</div>
+                    )}
                   </div>
                 </form>
               </div>
@@ -305,3 +337,6 @@ export default function UsersPage() {
     </div>
   );
 }
+UsersPage.propTypes = {
+  status: PropTypes.string,
+};

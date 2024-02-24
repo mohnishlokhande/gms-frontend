@@ -132,6 +132,10 @@
   display: flex;
   justify-content: flex-end;
 }
+.errorText {
+  color: #e22f13d1;
+  font-size: small;
+}
 @keyframes spin {
   0% {
     transform: rotate(0deg);

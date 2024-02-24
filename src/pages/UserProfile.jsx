@@ -109,20 +109,28 @@ export default function UserProfile() {
           </div>
         </div>
 
-        <div className="innerDiv">
-          <div className="panel-body widget-shadow" style={{ width: "80%" }}>
-            <div className="alignRight">
-              <p onClick={() => setViewMemberhip((a) => !a)}>
-                {viewMembership ? "Add membersip" : "View history membersip"}
-              </p>
+        {userProfile?.role === 1 && (
+          <>
+            <div className="innerDiv">
+              <div
+                className="panel-body widget-shadow"
+                style={{ width: "80%" }}
+              >
+                <div className="alignRight">
+                  <p onClick={() => setViewMemberhip((a) => !a)}>
+                    {viewMembership
+                      ? "Add membership"
+                      : "View history membership"}
+                  </p>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-
-        {viewMembership ? (
-          <MembershipHistory id={id} />
-        ) : (
-          <AddMembership setViewMemberhip={setViewMemberhip} />
+            {viewMembership ? (
+              <MembershipHistory id={id} />
+            ) : (
+              <AddMembership setViewMemberhip={setViewMemberhip} />
+            )}
+          </>
         )}
       </div>
 

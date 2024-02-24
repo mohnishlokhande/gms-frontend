@@ -6,31 +6,31 @@ import { useNavigate } from "react-router-dom";
 const Layout = (props) => {
   const navigate = useNavigate();
 
-  const pathName = window?.location?.pathname;
+  const pathName = window?.location?.pathname?.split("/");
   let dashboardClassName = "treeview";
   let usersClassName = "treeview";
   let gymsClassName = "treeview";
   let membershipsClassName = "treeview";
   let leadsClassName = "treeview";
 
-  switch (pathName) {
-    case "/": {
+  switch (pathName[1]) {
+    case "": {
       dashboardClassName += " active";
       break;
     }
-    case "/users": {
+    case "users": {
       usersClassName += " active";
       break;
     }
-    case "/gym": {
+    case "gym": {
       gymsClassName += " active";
       break;
     }
-    case "/membership": {
+    case "membership": {
       membershipsClassName += " active";
       break;
     }
-    case "/leads": {
+    case "leads": {
       leadsClassName += " active";
       break;
     }
@@ -90,7 +90,41 @@ const Layout = (props) => {
                     >
                       <i className="fa fa-users"></i>
                       <span>Users</span>
+                      <i className="fa fa-angle-left pull-right"></i>
                     </a>
+                    <ul className="treeview-menu">
+                      <li
+                        className={
+                          pathName.length > 2 &&
+                          pathName[2] === "active" &&
+                          "active"
+                        }
+                      >
+                        <a
+                          onClick={() => {
+                            navigate("/users/active");
+                          }}
+                        >
+                          <i className="fa fa-angle-right active"></i> Active
+                          users
+                        </a>
+                      </li>
+                      <li
+                        className={
+                          pathName.length > 2 &&
+                          pathName[2] === "inactive" &&
+                          "active"
+                        }
+                      >
+                        <a
+                          onClick={() => {
+                            navigate("/users/inactive");
+                          }}
+                        >
+                          <i className="fa fa-angle-right"></i> Inactive users
+                        </a>
+                      </li>
+                    </ul>
                   </li>
                   <li className={gymsClassName}>
                     <a
@@ -152,7 +186,7 @@ const Layout = (props) => {
             <button id="showLeftPush">
               <i className="fa fa-bars"></i>
             </button>
-            <div className="profile_details_left">
+            {/* <div className="profile_details_left">
               <ul className="nofitications-dropdown">
                 <li className="dropdown head-dpdn">
                   <a
@@ -369,32 +403,9 @@ const Layout = (props) => {
                 </li>
               </ul>
               <div className="clearfix"> </div>
-            </div>
-            <div className="clearfix"> </div>
+            </div> */}
           </div>
           <div className="header-right">
-            {/* <div className="search-box">
-              <form className="input">
-                <input
-                  className="sb-search-input input__field--madoka"
-                  placeholder="Search..."
-                  type="search"
-                  id="input-31"
-                />
-                <label className="input__label" htmlFor="input-31">
-                  <svg
-                    className="graphic"
-                    width="100%"
-                    height="100%"
-                    viewBox="0 0 404 77"
-                    preserveAspectRatio="none"
-                  >
-                    <path d="m0,0l404,0l0,77l-404,0l0,-77z" />
-                  </svg>
-                </label>
-              </form>
-            </div> */}
-
             <ProfileActions />
 
             <div className="clearfix"> </div>
