@@ -10,6 +10,7 @@ import MembershipPage from "./pages/MembershipPage";
 import LeadsPage from "./pages/LeadsPage";
 import MyAccount from "./pages/AccountPage";
 import UserProfile from "./pages/UserProfile";
+import NotifyPage from "./pages/NotifyPage";
 
 const protectedRoutes = [
   {
@@ -45,6 +46,10 @@ const protectedRoutes = [
   {
     path: "/users/inactive",
     element: <UsersPage status="inactive" />,
+  },
+  {
+    path: "/notify",
+    element: <NotifyPage />,
   },
 ];
 

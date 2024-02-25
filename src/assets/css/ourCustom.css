@@ -136,6 +136,12 @@
   color: #e22f13d1;
   font-size: small;
 }
+.width25 {
+  width: 25%;
+}
+.width75 {
+  width: 75%;
+}
 @keyframes spin {
   0% {
     transform: rotate(0deg);
