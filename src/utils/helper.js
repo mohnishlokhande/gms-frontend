@@ -19,3 +19,40 @@ export function increaseDate(originalDate, days, months, years) {
 
   return newDate.toISOString().split("T")[0];
 }
+
+function classReg(className) {
+  return new RegExp("(^|\\s+)" + className + "(\\s+|$)");
+}
+const hasClass = function (elem, c) {
+  return elem.classList.contains(c);
+};
+const removeClass = function (elem, c) {
+  elem.className = elem.className.replace(classReg(c), " ");
+};
+const addClass = function (elem, c) {
+  if (!hasClass(elem, c)) {
+    elem.className = elem.className + " " + c;
+  }
+};
+export const classChange = (elem, c) => {
+  let fn = hasClass(elem, c) ? removeClass : addClass;
+  fn(elem, c);
+};
+
+export const intervalFormat = (years, months, days) => {
+  if (years === 0 && months === 0 && days === 0) return "Not availabe";
+
+  let s = "";
+  if (years !== 0) {
+    s = s + years.toString() + " Years";
+  }
+  if (months !== 0) {
+    if (s !== "") s += ", ";
+    s = s + months.toString() + " Months";
+  }
+  if (days !== 0) {
+    if (s !== "") s += ", ";
+    s = s + days.toString() + " Days";
+  }
+  return s;
+};

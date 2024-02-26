@@ -98,16 +98,17 @@ span.dashboard_text {
   -moz-box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.21);
   -o-box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.21);
 }
-.header-section::after {
+/* .header-section::after {
   clear: both;
   display: block;
   content: "";
-}
+} */
 .header-left {
   float: left;
   width: 45%;
   margin-left: 15%;
   position: relative;
+  transition: margin-left ease-out 0.27s;
 }
 .header-right {
   float: right;
@@ -132,7 +133,7 @@ button#showLeftPush {
   border-radius: 50%;
   height: 40px;
   width: 40px;
-  margin-top: 11px;
+  margin-top: 0.5rem;
 }
 button#showLeftPush:hover {
   color: #eee;
@@ -7610,7 +7611,7 @@ h4.asd label {
   }
   .header-right {
     float: right;
-    width: 47%;
+    /* width: 47%; */
   }
   .search-box {
     width: 44%;
@@ -7670,7 +7671,7 @@ h4.asd label {
   }
   .header-right {
     float: right;
-    width: 55%;
+    /* width: 55%; */
   }
   .sb-search-input {
     width: 80%;
@@ -7722,7 +7723,7 @@ h4.asd label {
 @media (max-width: 736px) {
   .header-right {
     float: right;
-    width: 57%;
+    /* width: 57%; */
   }
   .login-page h3.title1,
   .signup-page h3.title1 {
@@ -7782,7 +7783,7 @@ h4.asd label {
   }
   .header-right {
     float: right;
-    width: 62%;
+    /* width: 62%; */
   }
   .mail.mail-name {
     width: 11%;
@@ -8300,7 +8301,7 @@ h4.asd label {
   }
   .header-right {
     float: none;
-    width: 100%;
+    width: auto;
   }
   .search-box {
     margin: 1em 0 1em 0em;

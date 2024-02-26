@@ -3,7 +3,7 @@ import { useGetAPI, usePostAPI } from "../api/Apis";
 import { useRefetchStore } from "../store/userStore";
 import { useForm } from "react-hook-form";
 import { useGymsStore, useMembershipsStore } from "../store/secondaryStore";
-import { getFormatDate } from "../utils/helper";
+import { getFormatDate, intervalFormat } from "../utils/helper";
 import Pagination from "../components/layout/Pagination";
 
 export default function MembershipPage() {
@@ -96,9 +96,7 @@ export default function MembershipPage() {
                   <th>Name</th>
                   <th>Gym Name</th>
                   <th>Price</th>
-                  <th>Billing Day</th>
-                  <th>Billing Month</th>
-                  <th>Billing Year</th>
+                  <th>Billing interval</th>
                   <th>Created at</th>
                 </tr>
               </thead>
@@ -111,9 +109,13 @@ export default function MembershipPage() {
                       <td>{membership?.name} </td>
                       <td>{membership?.gymName}</td>
                       <td>{Number(membership?.price) / 100}</td>
-                      <td>{membership?.billingDay}</td>
-                      <td>{membership?.billingMonth}</td>
-                      <td>{membership?.billingYear}</td>
+                      <td>
+                        {intervalFormat(
+                          membership?.billingYear,
+                          membership?.billingMonth,
+                          membership?.billingDay
+                        )}
+                      </td>
                       <td>{getFormatDate(membership?.createdAt)}</td>
                     </tr>
                   );

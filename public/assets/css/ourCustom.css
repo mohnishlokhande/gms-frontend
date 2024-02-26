@@ -142,6 +142,10 @@
 .width75 {
   width: 75%;
 }
+.marginLeft {
+  margin-left: 1% !important;
+  transition: margin-left ease-out 0.33s;
+}
 @keyframes spin {
   0% {
     transform: rotate(0deg);
