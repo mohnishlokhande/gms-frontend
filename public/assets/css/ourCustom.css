@@ -146,6 +146,11 @@
   margin-left: 1% !important;
   transition: margin-left ease-out 0.33s;
 }
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 @keyframes spin {
   0% {
     transform: rotate(0deg);

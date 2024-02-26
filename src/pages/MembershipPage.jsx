@@ -92,7 +92,7 @@ export default function MembershipPage() {
             <table className="table">
               <thead>
                 <tr>
-                  <th>#</th>
+                  <th style={{ width: "3%" }}>#</th>
                   <th>Name</th>
                   <th>Gym Name</th>
                   <th>Price</th>

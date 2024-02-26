@@ -64,18 +64,6 @@ const Layout = (props) => {
           <aside className="sidebar-left">
             <nav className="navbar navbar-inverse">
               <div className="navbar-header">
-                <button
-                  type="button"
-                  className="navbar-toggle collapsed"
-                  data-toggle="collapse"
-                  data-target=".collapse"
-                  aria-expanded="false"
-                >
-                  <span className="sr-only">Toggle navigation</span>
-                  <span className="icon-bar"></span>
-                  <span className="icon-bar"></span>
-                  <span className="icon-bar"></span>
-                </button>
                 <h1>
                   <a className="navbar-brand" href="/">
                     <span className="fa fa-area-chart"></span> GMS
@@ -85,116 +73,112 @@ const Layout = (props) => {
                   </a>
                 </h1>
               </div>
-              <div
-                className="collapse navbar-collapse"
-                id="bs-example-navbar-collapse-1"
-              >
-                <ul className="sidebar-menu">
-                  <li className="header">MAIN NAVIGATION</li>
-                  <li className={dashboardClassName}>
-                    <a
-                      onClick={() => {
-                        navigate("/");
-                      }}
-                    >
-                      <i className="fa fa-dashboard"></i> <span>Dashboard</span>
-                    </a>
-                  </li>
-                  <li className={usersClassName}>
-                    <a
-                      onClick={() => {
-                        navigate("/users");
-                      }}
-                    >
-                      <i className="fa fa-users"></i>
-                      <span>Users</span>
-                      <i className="fa fa-angle-left pull-right"></i>
-                    </a>
-                    <ul className="treeview-menu">
-                      <li className={pathName.length == 2 && "active"}>
-                        <a
-                          onClick={() => {
-                            navigate("/users");
-                          }}
-                        >
-                          <i className="fa fa-angle-right active"></i> All users
-                        </a>
-                      </li>
-                      <li
-                        className={
-                          pathName.length > 2 &&
-                          pathName[2] === "active" &&
-                          "active"
-                        }
+              <ul className="sidebar-menu">
+                <li className="header">MAIN NAVIGATION</li>
+                <li className={dashboardClassName}>
+                  <a
+                    onClick={() => {
+                      navigate("/");
+                    }}
+                  >
+                    <i className="fa fa-dashboard"></i> <span>Dashboard</span>
+                  </a>
+                </li>
+                <li className={usersClassName}>
+                  <a
+                    onClick={() => {
+                      navigate("/users");
+                    }}
+                  >
+                    <i className="fa fa-users"></i>
+                    <span>Users</span>
+                    <i className="fa fa-angle-left pull-right"></i>
+                  </a>
+                  <ul className="treeview-menu">
+                    <li className={pathName.length == 2 && "active"}>
+                      <a
+                        onClick={() => {
+                          navigate("/users");
+                        }}
                       >
-                        <a
-                          onClick={() => {
-                            navigate("/users/active");
-                          }}
-                        >
-                          <i className="fa fa-angle-right active"></i> Active
-                          users
-                        </a>
-                      </li>
-                      <li
-                        className={
-                          pathName.length > 2 &&
-                          pathName[2] === "inactive" &&
-                          "active"
-                        }
+                        <i className="fa fa-angle-right active"></i> All users
+                      </a>
+                    </li>
+                    <li
+                      className={
+                        pathName.length > 2 &&
+                        pathName[2] === "active" &&
+                        "active"
+                      }
+                    >
+                      <a
+                        onClick={() => {
+                          navigate("/users/active");
+                        }}
                       >
-                        <a
-                          onClick={() => {
-                            navigate("/users/inactive");
-                          }}
-                        >
-                          <i className="fa fa-angle-right"></i> Inactive users
-                        </a>
-                      </li>
-                    </ul>
-                  </li>
-                  <li className={gymsClassName}>
-                    <a
-                      onClick={() => {
-                        navigate("/gym");
-                      }}
+                        <i className="fa fa-angle-right active"></i> Active
+                        users
+                      </a>
+                    </li>
+                    <li
+                      className={
+                        pathName.length > 2 &&
+                        pathName[2] === "inactive" &&
+                        "active"
+                      }
                     >
-                      <i className="fa fa-cogs"></i>
-                      <span>GYM</span>
-                    </a>
-                  </li>
-                  <li className={membershipsClassName}>
-                    <a
-                      onClick={() => {
-                        navigate("/membership");
-                      }}
-                    >
-                      <i className="fa fa-address-card-o"></i>
-                      <span>Membership</span>
-                    </a>
-                  </li>
-                  <li className={leadsClassName}>
-                    <a
-                      onClick={() => {
-                        navigate("/leads");
-                      }}
-                    >
-                      <i className="fa fa-rocket"></i>
-                      <span>Leads</span>
-                    </a>
-                  </li>
-                  <li className={notifyClassName}>
-                    <a
-                      onClick={() => {
-                        navigate("/notify");
-                      }}
-                    >
-                      <i className="fa fa-envelope"></i>
-                      <span>Notify</span>
-                    </a>
-                  </li>
+                      <a
+                        onClick={() => {
+                          navigate("/users/inactive");
+                        }}
+                      >
+                        <i className="fa fa-angle-right"></i> Inactive users
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+                <li className={gymsClassName}>
+                  <a
+                    onClick={() => {
+                      navigate("/gym");
+                    }}
+                  >
+                    <i className="fa fa-cogs"></i>
+                    <span>GYM</span>
+                  </a>
+                </li>
+                <li className={membershipsClassName}>
+                  <a
+                    onClick={() => {
+                      navigate("/membership");
+                    }}
+                  >
+                    <i className="fa fa-address-card-o"></i>
+                    <span>Membership</span>
+                  </a>
+                </li>
+                <li className={leadsClassName}>
+                  <a
+                    onClick={() => {
+                      navigate("/leads");
+                    }}
+                  >
+                    <i className="fa fa-rocket"></i>
+                    <span>Leads</span>
+                  </a>
+                </li>
+                <li className={notifyClassName}>
+                  <a
+                    onClick={() => {
+                      navigate("/notify");
+                    }}
+                  >
+                    <i className="fa fa-envelope"></i>
+                    <span>Notify</span>
+                  </a>
+                </li>
 
-                  {/* <li className="header">LABELS</li>
+                {/* <li className="header">LABELS</li>
                   <li>
                     <a href="#">
                       <i className="fa fa-angle-right text-red"></i>{" "}
@@ -213,8 +197,7 @@ const Layout = (props) => {
                       <span>Information</span>
                     </a>
                   </li> */}
-                </ul>
-              </div>
+              </ul>
             </nav>
           </aside>
         </div>
