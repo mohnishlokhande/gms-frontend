@@ -133,7 +133,7 @@ export default function UsersPage({ status = "" }) {
               <thead>
                 <tr>
                   <th style={{ width: "3%" }}>#</th>
-                  <th>Name</th>
+                  <th style={{ width: "15%" }}>Name</th>
                   <th>Email</th>
                   <th>Role</th>
                   <th>Action</th>

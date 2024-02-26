@@ -170,12 +170,46 @@ const Layout = (props) => {
                 <li className={notifyClassName}>
                   <a
                     onClick={() => {
-                      navigate("/notify");
+                      navigate("/notify/single");
                     }}
                   >
                     <i className="fa fa-envelope"></i>
                     <span>Notify</span>
+                    <i className="fa fa-angle-left pull-right"></i>
                   </a>
+
+                  <ul className="treeview-menu">
+                    <li
+                      className={
+                        pathName.length > 2 &&
+                        pathName[2] === "single" &&
+                        "active"
+                      }
+                    >
+                      <a
+                        onClick={() => {
+                          navigate("/notify/single");
+                        }}
+                      >
+                        <i className="fa fa-angle-right active"></i> Send single
+                      </a>
+                    </li>
+                    <li
+                      className={
+                        pathName.length > 2 &&
+                        pathName[2] === "bulk" &&
+                        "active"
+                      }
+                    >
+                      <a
+                        onClick={() => {
+                          navigate("/notify/bulk");
+                        }}
+                      >
+                        <i className="fa fa-angle-right active"></i> Send bulk
+                      </a>
+                    </li>
+                  </ul>
                 </li>
 
                 {/* <li className="header">LABELS</li>

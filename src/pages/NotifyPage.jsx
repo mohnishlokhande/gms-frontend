@@ -73,7 +73,7 @@ export default function NotifyPage() {
 
           <div className="panel-body widget-shadow">
             <form onSubmit={handleSubmit(sendNotify)}>
-              <div className="formRow form-group">
+              {/* <div className="formRow form-group">
                 <label className="control-label width25">Send them all</label>
                 <div style={{ display: "flex" }} className="width75">
                   <div>
@@ -85,7 +85,7 @@ export default function NotifyPage() {
                     False
                   </div>
                 </div>
-              </div>
+              </div> */}
               {!isBulk && (
                 <div className="form-group formRow">
                   <label className="control-label width25">

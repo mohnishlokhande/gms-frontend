@@ -48,7 +48,11 @@ const protectedRoutes = [
     element: <UsersPage status="inactive" />,
   },
   {
-    path: "/notify",
+    path: "/notify/single",
+    element: <NotifyPage />,
+  },
+  {
+    path: "/notify/bulk",
     element: <NotifyPage />,
   },
 ];
