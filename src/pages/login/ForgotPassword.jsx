@@ -48,7 +48,8 @@ export default function ForgotPassword() {
     return (
       <div className="widget-shadow">
         <div className="login-body">
-          <b>A link is sent to {inputVal}. Please check your inbox</b>
+          An email has been sent to <b>{inputVal}</b>. Please check your inbox
+          for the link.
         </div>
       </div>
     );
@@ -79,13 +80,14 @@ export default function ForgotPassword() {
                     </label>
                     <input
                       {...register("inputVal", { required: "true" })}
-                      type="email"
                       style={{ marginTop: "4px" }}
                       placeholder="Enter your email or phone number"
                       aria-invalid={errors.inputVal ? "true" : "false"}
                     />
                     {errors.inputVal?.type === "required" && (
-                      <p role="alert">Email or phone number is required</p>
+                      <div role="alert" className="errorText">
+                        Email or phone number is required
+                      </div>
                     )}
                   </div>
 

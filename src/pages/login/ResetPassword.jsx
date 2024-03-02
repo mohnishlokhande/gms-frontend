@@ -6,7 +6,7 @@ import queryString from "query-string";
 
 export default function ResetPassword() {
   const navigate = useNavigate();
-  const [isError, setIsError] = useState(false);
+  const [errorCode, setErrorCode] = useState(0);
 
   const { register, handleSubmit, watch } = useForm();
 
@@ -23,7 +23,7 @@ export default function ResetPassword() {
       navigate("/login");
     },
     onError: (err) => {
-      setIsError(true);
+      setErrorCode(err?.status);
       console.log("###$@$", err);
     },
   });
@@ -36,11 +36,11 @@ export default function ResetPassword() {
     mutate(payload);
   };
 
-  const isDisabled = isError || isUpdateLoading || password === "";
+  const isDisabled = errorCode != 0 || isUpdateLoading || password === "";
 
   useEffect(() => {
     if (password) {
-      setIsError(false);
+      setErrorCode(0);
     }
   }, [password]);
 
@@ -60,7 +60,14 @@ export default function ResetPassword() {
                   placeholder="Password"
                 />
 
-                {isError && <div className="errorText">Week password</div>}
+                {errorCode === 400 && (
+                  <div className="errorText">Week password</div>
+                )}
+                {errorCode === 401 && (
+                  <div className="errorText">
+                    This link has either already been used or it has expired
+                  </div>
+                )}
               </div>
 
               <div

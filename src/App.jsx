@@ -65,17 +65,23 @@ function App() {
   const accountCount = useRefetchStore((state) => state.accountCount);
   useGetAPI("user", "account", accountCount);
 
+  const aleadyLoggedIn = (element) => {
+    if (isAuthenticated) return <Navigate to="/" />;
+    return element;
+  };
+
   return (
     <>
       <Routes>
+        <Route path="/login" element={aleadyLoggedIn(<Login />)} />
         <Route
-          path="/login"
-          element={isAuthenticated ? <Navigate to="/" /> : <Login />}
+          path="/forgot-password"
+          element={aleadyLoggedIn(<ForgotPassword />)}
         />
-        <Route path="/login" exact element={<Login />} />
-
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/change-password" element={<ResetPassword />} />
+        <Route
+          path="/change-password"
+          element={aleadyLoggedIn(<ResetPassword />)}
+        />
 
         {protectedRoutes.map((route) => (
           <Route
