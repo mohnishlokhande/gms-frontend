@@ -1871,7 +1871,7 @@ form.search-form {
   outline: none;
   border: 1px solid #d3d3d3;
   background: #ffffff;
-  margin: 0em 0em 1.5em 0em;
+  margin: 0em 0em 1em 0em;
 }
 .login-page input.user {
   background: url(../images/user.png) no-repeat 8px 16px #fff;

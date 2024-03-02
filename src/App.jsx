@@ -12,6 +12,7 @@ import MyAccount from "./pages/AccountPage";
 import UserProfile from "./pages/UserProfile";
 import NotifyPage from "./pages/NotifyPage";
 import ForgotPassword from "./pages/login/ForgotPassword";
+import ResetPassword from "./pages/login/ResetPassword";
 
 const protectedRoutes = [
   {
@@ -74,7 +75,7 @@ function App() {
         <Route path="/login" exact element={<Login />} />
 
         <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/change-password" element={<MyAccount />} />
+        <Route path="/change-password" element={<ResetPassword />} />
 
         {protectedRoutes.map((route) => (
           <Route

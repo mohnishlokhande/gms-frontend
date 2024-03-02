@@ -48,7 +48,7 @@ export default function ForgotPassword() {
     return (
       <div className="widget-shadow">
         <div className="login-body">
-          An link is sent to {inputVal}. Please check your inbox
+          <b>A link is sent to {inputVal}. Please check your inbox</b>
         </div>
       </div>
     );

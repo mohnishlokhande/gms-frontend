@@ -108,16 +108,26 @@ const usePostAPI = (config = {}) => {
 
 const usePostAPIWithoutAuth = (config = {}) => {
   const [isLoading, setLoading] = useState(false);
-  const { method = "post" } = config;
+  const { method = "post", token = "" } = config;
 
   const mutate = (payload) => {
     setLoading(true);
 
-    axios({
+    let apiConfig = {
       method: method,
       url: `${baseURL}/${config?.endPoint}`,
       data: { ...payload },
-    })
+    };
+    if (token !== "") {
+      apiConfig = {
+        ...apiConfig,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+    }
+
+    axios(apiConfig)
       .then((value) => {
         config?.onSuccess(value);
         setLoading(false);
