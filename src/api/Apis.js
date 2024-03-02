@@ -106,4 +106,28 @@ const usePostAPI = (config = {}) => {
   return { mutate, isLoading };
 };
 
-export { useGetAPI, usePostAPI };
+const usePostAPIWithoutAuth = (config = {}) => {
+  const [isLoading, setLoading] = useState(false);
+  const { method = "post" } = config;
+
+  const mutate = (payload) => {
+    setLoading(true);
+
+    axios({
+      method: method,
+      url: `${baseURL}/${config?.endPoint}`,
+      data: { ...payload },
+    })
+      .then((value) => {
+        config?.onSuccess(value);
+        setLoading(false);
+      })
+      .catch((error) => {
+        setLoading(false);
+        config?.onError(error?.response);
+      });
+  };
+  return { mutate, isLoading };
+};
+
+export { useGetAPI, usePostAPI, usePostAPIWithoutAuth };
