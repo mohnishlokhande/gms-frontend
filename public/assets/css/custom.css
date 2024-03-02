@@ -96,6 +96,31 @@
 .sidebar .nav-third-level li a {
   padding-left: 52px;
 }
+.customBtn {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  color: #fff;
+  background: #f2b33f;
+  width: 40%;
+  padding: 0.6em 1em;
+  font-size: 1em;
+  margin: 0.5em auto 0;
+  display: flex;
+  justify-content: center;
+  align-items: center ;
+  transition: 0.5s all;
+  -webkit-transition: 0.5s all;
+  -moz-transition: 0.5s all;
+  -ms-transition: 0.5s all;
+  -o-transition: 0.5s all;
+}
+.customBtn:hover {
+  background: #337ab7;
+}
+.cursor {
+  cursor: pointer;
+}
 @media (min-width: 768px) {
   .navbar-top-links .dropdown-messages,
   .navbar-top-links .dropdown-tasks,

@@ -56,3 +56,16 @@ export const intervalFormat = (years, months, days) => {
   }
   return s;
 };
+
+export const determineInputType = (value) => {
+  const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+  const isPhoneNumber = /^\d{10}$/.test(value);
+
+  if (isEmail) {
+    return "email";
+  } else if (isPhoneNumber) {
+    return "phone";
+  }
+
+  return "invalid";
+};

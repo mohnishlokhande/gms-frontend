@@ -54,8 +54,6 @@ const Login = () => {
     }
   }, [email, password]);
 
-  console.log("####@@@", errors, isError, isLoading);
-
   return (
     <div id="page-wrapper" style={{ height: "100vh" }}>
       <div className="main-page login-page ">
@@ -71,7 +69,7 @@ const Login = () => {
                 aria-invalid={errors.email ? "true" : "false"}
               />
               {errors.email?.type === "required" && (
-                <p role="alert">First name is required</p>
+                <p role="alert">Email is required</p>
               )}
               <input
                 type="password"
@@ -81,6 +79,14 @@ const Login = () => {
               />
 
               {isError && <div className="errorText">Invalid credentials</div>}
+              <div
+                className="forgot cursor"
+                onClick={() => {
+                  navigate("/forgot-password");
+                }}
+              >
+                forgot password?
+              </div>
 
               <div
                 style={{
@@ -91,9 +97,10 @@ const Login = () => {
               >
                 <button
                   type="submit"
-                  className={`btn btn-warning ${
+                  className={`customBtn ${
                     (isError || isLoading) && "disabled"
                   }`}
+                  disabled={isError || isLoading}
                 >
                   {isLoading ? <div className="loader" /> : <>Sign In </>}
                 </button>

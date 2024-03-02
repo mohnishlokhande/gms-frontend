@@ -1904,12 +1904,12 @@ form.search-form {
 .forgot {
   float: right;
 }
-.forgot a {
+.forgot {
   font-size: 1em;
   color: #555;
   display: block;
 }
-.forgot a:hover {
+.forgot:hover {
   color: #f2b33f;
 }
 .login-page input[type="submit"] {
@@ -8867,7 +8867,7 @@ h4.asd label {
   .signup-page input[type="password"] {
     background: url(../images/lock.png) no-repeat 8px 10px #fff;
   }
-  .forgot a {
+  .forgot {
     font-size: 0.9em;
   }
   .login-page input[type="submit"] {

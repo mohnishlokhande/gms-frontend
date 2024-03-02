@@ -11,6 +11,7 @@ import LeadsPage from "./pages/LeadsPage";
 import MyAccount from "./pages/AccountPage";
 import UserProfile from "./pages/UserProfile";
 import NotifyPage from "./pages/NotifyPage";
+import ForgotPassword from "./pages/login/ForgotPassword";
 
 const protectedRoutes = [
   {
@@ -70,6 +71,10 @@ function App() {
           path="/login"
           element={isAuthenticated ? <Navigate to="/" /> : <Login />}
         />
+        <Route path="/login" exact element={<Login />} />
+
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/change-password" element={<MyAccount />} />
 
         {protectedRoutes.map((route) => (
           <Route
