@@ -70,14 +70,6 @@ function App() {
     return element;
   };
 
-  console.log(
-    "####",
-    import.meta.env,
-    import.meta.env.VITE_APP_ENV,
-    "|",
-    import.meta
-  );
-
   return (
     <>
       <Routes>
