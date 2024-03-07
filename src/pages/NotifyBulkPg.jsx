@@ -1,22 +1,17 @@
 import { useForm } from "react-hook-form";
-import { useUsersStore } from "../store/userStore";
-import { useGetAPI, usePostAPI } from "../api/Apis";
+import { usePostAPI } from "../api/Apis";
 import { useEffect, useState } from "react";
 
-export default function NotifyPage() {
+export default function NotifyBulkPage() {
   const { register, handleSubmit, watch, reset } = useForm({
     defaultValues: {
-      isBulk: "0",
+      channel: "-1",
       definedContent: "1",
       content: "",
-      userId: "-1",
     },
   });
 
   const [error, setError] = useState("");
-
-  const users = useUsersStore((state) => state.users);
-  useGetAPI("users", "users", 1);
 
   const { mutate, isLoading } = usePostAPI({
     endPoint: `notify`,
@@ -29,8 +24,6 @@ export default function NotifyPage() {
     },
   });
 
-  const isBulk = Number(watch("isBulk"));
-  const userId = Number(watch("userId"));
   const channel = watch("channel");
   const content = watch("content");
   const communicationFor = watch("communicationFor");
@@ -38,19 +31,15 @@ export default function NotifyPage() {
 
   const sendNotify = () => {
     let payload = {
-      isBulk: !!isBulk,
+      isBulk: true,
       channel,
       content,
       communicationFor,
     };
-    if (!isBulk) {
-      payload = { ...payload, userId };
-    }
     mutate(payload);
   };
 
   const isDisable =
-    (!isBulk && userId === -1) ||
     (!definedContent && content === "") ||
     (definedContent && communicationFor === "-1") ||
     channel === "-1" ||
@@ -61,65 +50,18 @@ export default function NotifyPage() {
     if (error !== "") {
       setError("");
     }
-  }, [
-    isBulk,
-    userId,
-    channel,
-    communicationFor,
-    content,
-    definedContent,
-    error,
-  ]);
+  }, [channel, communicationFor, content, definedContent, error]);
 
   return (
     <div id="page-wrapper">
       <div className="main-page">
         <div className="tables">
           <div className="customHeaderPg">
-            <h2 className="title1">Send single notifications</h2>
+            <h2 className="title1">Send bulk notifications</h2>
           </div>
 
           <div className="panel-body widget-shadow">
             <form onSubmit={handleSubmit(sendNotify)}>
-              {/* <div className="formRow form-group">
-                <label className="control-label width25">Send them all</label>
-                <div style={{ display: "flex" }} className="width75">
-                  <div>
-                    <input type="radio" value={1} {...register("isBulk")} />
-                    True
-                  </div>
-                  <div>
-                    <input type="radio" value={0} {...register("isBulk")} />
-                    False
-                  </div>
-                </div>
-              </div> */}
-              {!isBulk && (
-                <div className="form-group formRow">
-                  <label className="control-label width25">
-                    Select user id
-                  </label>
-                  <div className="width75">
-                    <select
-                      multiple=""
-                      className="form-control1"
-                      {...register("userId")}
-                    >
-                      <option value={-1}>Select user id</option>
-
-                      {users?.map((user) => {
-                        if (user?.id === 0) return null;
-                        return (
-                          <option value={user?.id} key={user?.id}>
-                            {user?.name}
-                          </option>
-                        );
-                      })}
-                    </select>
-                  </div>
-                </div>
-              )}
-
               <div className="form-group formRow">
                 <label className="control-label width25">Select channel</label>
                 <div className="width75">
