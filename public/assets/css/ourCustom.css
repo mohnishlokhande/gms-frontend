@@ -223,13 +223,19 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 
+.settingsContainer {
+  display: grid;
+  column-gap: 2.5rem;
+  row-gap: 2.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(45%, 1fr));
+}
+
 .settingBox {
   background-color: #fff;
   box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   -webkit-box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.12),
     0 1px 2px rgba(0, 0, 0, 0.24);
   padding: 1rem 2rem;
-  margin: 0 2rem 2rem 0;
 }
 @keyframes spin {
   0% {

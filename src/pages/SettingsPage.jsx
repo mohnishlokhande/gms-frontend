@@ -56,53 +56,56 @@ export default function SettingsPage() {
               Your setting are saved successfully.
             </div>
           )}
-          <div className="settingBox">
-            <h4>SMS</h4>
-            <SettingsToggle toggleKey="automaticBirthdayWishesSms" />
-            <SettingsToggle toggleKey="automaticMarriageAnniversaryWishesSms" />
-            <SettingsToggle toggleKey="automaticMembershipAnniversaryWishesSms" />
-            <SettingsToggle toggleKey="automaticExpirySevenDaySms" />
-            <SettingsToggle toggleKey="automaticExpiryBeforeDaySms" />
-            <hr />
-            <h4>Email</h4>
-            <SettingsToggle toggleKey="automaticBirthdayWishesEmail" />
-            <SettingsToggle toggleKey="automaticMarriageAnniversaryWishesEmail" />
-            <SettingsToggle toggleKey="automaticMembershipAnniversaryWishesEmail" />
-            <SettingsToggle toggleKey="automaticExpirySevenDayEmail" />
-            <SettingsToggle toggleKey="automaticExpiryBeforeDayEmail" />
-            <hr />
-            <h4>WhatsApp</h4>
-            <SettingsToggle toggleKey="automaticBirthdayWishesWa" />
-            <SettingsToggle toggleKey="automaticMarriageAnniversaryWishesWa" />
-            <SettingsToggle toggleKey="automaticMembershipAnniversaryWishesWa" />
-            <SettingsToggle toggleKey="automaticExpirySevenDayWa" />
-            <SettingsToggle toggleKey="automaticExpiryBeforeDayWa" />
-            {isChanged === 1 && (
-              <div className="errorText" style={{ padding: "1rem 0rem" }}>
-                Api failed due to some internal reason. Please try again after
-                some time.
-              </div>
-            )}
-          </div>
-          <div className="add-membership-footer">
-            <div style={{ width: "94%", textAlign: "right" }}>
-              <button
-                type="button"
-                className="btn btn-default"
-                onClick={() => {
-                  refetchSettings();
-                }}
-              >
-                Reset
-              </button>
-              <button
-                type="button"
-                className={`btn btn-warning ${isDisable && "disabled"}`}
-                onClick={updateSettings}
-              >
-                {isLoading ? <div className="loader" /> : <>Update settings </>}
-              </button>
+          <div className="settingsContainer">
+            <div className="settingBox">
+              <h4>SMS</h4>
+              <SettingsToggle toggleKey="automaticBirthdayWishesSms" />
+              <SettingsToggle toggleKey="automaticMarriageAnniversaryWishesSms" />
+              <SettingsToggle toggleKey="automaticMembershipAnniversaryWishesSms" />
+              <SettingsToggle toggleKey="automaticExpirySevenDaySms" />
+              <SettingsToggle toggleKey="automaticExpiryBeforeDaySms" />
             </div>
+            <div className="settingBox">
+              <h4>Email</h4>
+              <SettingsToggle toggleKey="automaticBirthdayWishesEmail" />
+              <SettingsToggle toggleKey="automaticMarriageAnniversaryWishesEmail" />
+              <SettingsToggle toggleKey="automaticMembershipAnniversaryWishesEmail" />
+              <SettingsToggle toggleKey="automaticExpirySevenDayEmail" />
+              <SettingsToggle toggleKey="automaticExpiryBeforeDayEmail" />
+            </div>
+            <div className="settingBox">
+              <h4>WhatsApp</h4>
+              <SettingsToggle toggleKey="automaticBirthdayWishesWa" />
+              <SettingsToggle toggleKey="automaticMarriageAnniversaryWishesWa" />
+              <SettingsToggle toggleKey="automaticMembershipAnniversaryWishesWa" />
+              <SettingsToggle toggleKey="automaticExpirySevenDayWa" />
+              <SettingsToggle toggleKey="automaticExpiryBeforeDayWa" />
+              {isChanged === 1 && (
+                <div className="errorText" style={{ padding: "1rem 0rem" }}>
+                  Api failed due to some internal reason. Please try again after
+                  some time.
+                </div>
+              )}
+            </div>
+          </div>
+          <div className="alignRight" style={{ marginTop: "1rem" }}>
+            <button
+              type="button"
+              className="btn btn-default"
+              onClick={() => {
+                refetchSettings();
+              }}
+            >
+              Reset
+            </button>
+            <button
+              type="button"
+              className={`btn btn-warning ${isDisable && "disabled"}`}
+              style={{ marginLeft: "1rem" }}
+              onClick={updateSettings}
+            >
+              {isLoading ? <div className="loader" /> : <>Update settings </>}
+            </button>
           </div>
         </div>
       </div>
