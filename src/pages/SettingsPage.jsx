@@ -35,8 +35,6 @@ export default function SettingsPage() {
     mutate(payload);
   };
 
-  console.log("###", settings, isEdit);
-
   useEffect(() => {
     if (isChanged !== 2 && isEdit) {
       setIsChanged(2);

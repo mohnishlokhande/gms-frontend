@@ -10,6 +10,7 @@ const Login = () => {
 
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const {
     register,
@@ -74,12 +75,26 @@ const Login = () => {
               {errors.email?.type === "required" && (
                 <p role="alert">Email is required</p>
               )}
-              <input
-                type="password"
-                {...register("password", { required: true })}
-                className="lock"
-                placeholder="Password"
-              />
+              <div style={{ position: "relative" }}>
+                <input
+                  type={showPassword ? "text" : "password"}
+                  {...register("password", { required: true })}
+                  className="lock customPass"
+                  placeholder="Password"
+                />
+                <div
+                  className="viewPassword"
+                  onClick={() => {
+                    setShowPassword((state) => !state);
+                  }}
+                >
+                  {showPassword ? (
+                    <i className="fa fa-eye-slash" aria-hidden="true"></i>
+                  ) : (
+                    <i className="fa fa-eye" aria-hidden="true"></i>
+                  )}
+                </div>
+              </div>
 
               {isError && <div className="errorText">Invalid credentials</div>}
               <div

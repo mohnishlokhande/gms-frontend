@@ -7,6 +7,7 @@ import queryString from "query-string";
 export default function ResetPassword() {
   const navigate = useNavigate();
   const [errorCode, setErrorCode] = useState(0);
+  const [showPassword, setShowPassword] = useState(false);
 
   const { register, handleSubmit, watch } = useForm();
 
@@ -53,12 +54,26 @@ export default function ResetPassword() {
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="form-group">
                 <label>Create a new password</label>
-                <input
-                  type="password"
-                  {...register("password", { required: true })}
-                  className="lock"
-                  placeholder="Password"
-                />
+                <div style={{ position: "relative" }}>
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    {...register("password", { required: true })}
+                    className="lock"
+                    placeholder="Password"
+                  />
+                  <div
+                    className="viewPassword"
+                    onClick={() => {
+                      setShowPassword((state) => !state);
+                    }}
+                  >
+                    {showPassword ? (
+                      <i className="fa fa-eye-slash" aria-hidden="true"></i>
+                    ) : (
+                      <i className="fa fa-eye" aria-hidden="true"></i>
+                    )}
+                  </div>
+                </div>
 
                 {errorCode === 400 && (
                   <div className="errorText">Week password</div>
