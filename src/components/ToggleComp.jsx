@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-export default function ToggleComp({ isChecked, setIsChecked, labelText }) {
+export default function ToggleComp({ isChecked, handleToggle, labelText }) {
   return (
     <div className="toggleBox">
       <label className="switch">
@@ -8,19 +8,22 @@ export default function ToggleComp({ isChecked, setIsChecked, labelText }) {
           type="checkbox"
           checked={isChecked}
           onClick={() => {
-            setIsChecked((e) => !e);
+            handleToggle();
           }}
         />
         <span className="slider round"></span>
       </label>
-
-      {labelText}
+      <div style={{ marginLeft: "1.25rem", width: "80%" }}>{labelText}</div>
     </div>
   );
 }
 
+ToggleComp.defaultProps = {
+  isChecked: false,
+  handleToggle: () => {},
+};
 ToggleComp.propTypes = {
   isChecked: PropTypes.bool,
-  setIsChecked: PropTypes.func,
+  handleToggle: PropTypes.func,
   labelText: PropTypes.string,
 };

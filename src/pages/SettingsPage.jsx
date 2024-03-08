@@ -1,49 +1,47 @@
-import { useState } from "react";
-import ToggleComp from "../components/ToggleComp";
+import { useGetAPI, usePostAPI } from "../api/Apis";
+import { useRefetchStore } from "../store/userStore";
+import { useSettingsStore } from "../store/secondaryStore";
+import SettingsToggle from "../components/SettingsToggle";
+import { useEffect, useState } from "react";
 
 export default function SettingsPage() {
-  const [automaticBirthdayWishesSms, setAutomaticBirthdayWishesSms] =
-    useState(false);
-  const [
-    automaticMarriageAnniversaryWishesSms,
-    setAutomaticMarriageAnniversaryWishesSms,
-  ] = useState(false);
-  const [
-    automaticMembershipAnniversaryWishesSms,
-    setAutomaticMembershipAnniversaryWishesSms,
-  ] = useState(false);
-  const [automaticExpirySevenDaySms, setAutomaticExpirySevenDaySms] =
-    useState(false);
-  const [automaticExpiryBeforeDaySms, setAutomaticExpiryBeforeDaySms] =
-    useState(false);
-  const [automaticBirthdayWishesEmail, setAutomaticBirthdayWishesEmail] =
-    useState(false);
-  const [
-    automaticMarriageAnniversaryWishesEmail,
-    setAutomaticMarriageAnniversaryWishesEmail,
-  ] = useState(false);
-  const [
-    automaticMembershipAnniversaryWishesEmail,
-    setAutomaticMembershipAnniversaryWishesEmail,
-  ] = useState(false);
-  const [automaticExpirySevenDayEmail, setAutomaticExpirySevenDayEmail] =
-    useState(false);
-  const [automaticExpiryBeforeDayEmail, setAutomaticExpiryBeforeDayEmail] =
-    useState(false);
-  const [automaticBirthdayWishesWa, setAutomaticBirthdayWishesWa] =
-    useState(false);
-  const [
-    automaticMarriageAnniversaryWishesWa,
-    setAutomaticMarriageAnniversaryWishesWa,
-  ] = useState(false);
-  const [
-    automaticMembershipAnniversaryWishesWa,
-    setAutomaticMembershipAnniversaryWishesWa,
-  ] = useState(false);
-  const [automaticExpirySevenDayWa, setAutomaticExpirySevenDayWa] =
-    useState(false);
-  const [automaticExpiryBeforeDayWa, setAutomaticExpiryBeforeDayWa] =
-    useState(false);
+  const settingsCount = useRefetchStore((state) => state.settingsCount);
+  const refetchSettings = useRefetchStore((state) => state.refetchSettings);
+  const settings = useSettingsStore((state) => state.settings);
+  const isEdit = useSettingsStore((state) => state.isEdit);
+
+  const [isChanged, setIsChanged] = useState(0);
+
+  useGetAPI("users/settings", "settings", settingsCount);
+
+  const isDisable = isChanged === 0 || isChanged === 1 || !isEdit;
+
+  const { mutate, isLoading } = usePostAPI({
+    method: "patch",
+    endPoint: `user-settings`,
+    onSuccess: () => {
+      refetchSettings();
+      setIsChanged(3);
+    },
+    onError: () => {
+      setIsChanged(1);
+    },
+  });
+
+  const updateSettings = () => {
+    const payload = {
+      ...settings,
+    };
+    mutate(payload);
+  };
+
+  console.log("###", settings, isEdit);
+
+  useEffect(() => {
+    if (isChanged !== 2 && isEdit) {
+      setIsChanged(2);
+    }
+  }, [settings]);
 
   return (
     <div id="page-wrapper">
@@ -53,89 +51,58 @@ export default function SettingsPage() {
             <h2 className="title1">Settings</h2>
           </div>
 
+          {isChanged === 3 && (
+            <div className="successText">
+              Your setting are saved successfully.
+            </div>
+          )}
           <div className="settingBox">
             <h4>SMS</h4>
-            <ToggleComp
-              isChecked={automaticBirthdayWishesSms}
-              setIsChecked={setAutomaticBirthdayWishesSms}
-              labelText="Automatic Birthday Wishes Sms"
-            />
-            <ToggleComp
-              isChecked={automaticMarriageAnniversaryWishesSms}
-              setIsChecked={setAutomaticMarriageAnniversaryWishesSms}
-              labelText="Automatic Marriage Anniversary Wishes Sms"
-            />
-            <ToggleComp
-              isChecked={automaticMembershipAnniversaryWishesSms}
-              setIsChecked={setAutomaticMembershipAnniversaryWishesSms}
-              labelText="Automatic Membership Anniversary Wishes Sms"
-            />
-            <ToggleComp
-              isChecked={automaticExpirySevenDaySms}
-              setIsChecked={setAutomaticExpirySevenDaySms}
-              labelText="Automatic Expiry Seven Day Sms"
-            />
-            <ToggleComp
-              isChecked={automaticExpiryBeforeDaySms}
-              setIsChecked={setAutomaticExpiryBeforeDaySms}
-              labelText="Automatic Expiry Before Day Sms"
-            />
-          </div>
-          <div className="settingBox">
+            <SettingsToggle toggleKey="automaticBirthdayWishesSms" />
+            <SettingsToggle toggleKey="automaticMarriageAnniversaryWishesSms" />
+            <SettingsToggle toggleKey="automaticMembershipAnniversaryWishesSms" />
+            <SettingsToggle toggleKey="automaticExpirySevenDaySms" />
+            <SettingsToggle toggleKey="automaticExpiryBeforeDaySms" />
+            <hr />
             <h4>Email</h4>
-            <ToggleComp
-              isChecked={automaticBirthdayWishesEmail}
-              setIsChecked={setAutomaticBirthdayWishesEmail}
-              labelText="Automatic Birthday Wishes Email"
-            />
-            <ToggleComp
-              isChecked={automaticMarriageAnniversaryWishesEmail}
-              setIsChecked={setAutomaticMarriageAnniversaryWishesEmail}
-              labelText="Automatic Marriage Anniversary Wishes Email"
-            />
-            <ToggleComp
-              isChecked={automaticMembershipAnniversaryWishesEmail}
-              setIsChecked={setAutomaticMembershipAnniversaryWishesEmail}
-              labelText="Automatic Membership Anniversary Wishes Email"
-            />
-            <ToggleComp
-              isChecked={automaticExpirySevenDayEmail}
-              setIsChecked={setAutomaticExpirySevenDayEmail}
-              labelText="Automatic Expiry Seven Day Email"
-            />
-            <ToggleComp
-              isChecked={automaticExpiryBeforeDayEmail}
-              setIsChecked={setAutomaticExpiryBeforeDayEmail}
-              labelText="Automatic Expiry Before Day Email"
-            />
-          </div>
-          <div className="settingBox">
+            <SettingsToggle toggleKey="automaticBirthdayWishesEmail" />
+            <SettingsToggle toggleKey="automaticMarriageAnniversaryWishesEmail" />
+            <SettingsToggle toggleKey="automaticMembershipAnniversaryWishesEmail" />
+            <SettingsToggle toggleKey="automaticExpirySevenDayEmail" />
+            <SettingsToggle toggleKey="automaticExpiryBeforeDayEmail" />
+            <hr />
             <h4>WhatsApp</h4>
-            <ToggleComp
-              isChecked={automaticBirthdayWishesWa}
-              setIsChecked={setAutomaticBirthdayWishesWa}
-              labelText="Automatic Birthday Wishes WhatsApp"
-            />
-            <ToggleComp
-              isChecked={automaticMarriageAnniversaryWishesWa}
-              setIsChecked={setAutomaticMarriageAnniversaryWishesWa}
-              labelText="Automatic Marriage Anniversary Wishes WhatsApp"
-            />
-            <ToggleComp
-              isChecked={automaticMembershipAnniversaryWishesWa}
-              setIsChecked={setAutomaticMembershipAnniversaryWishesWa}
-              labelText="Automatic Membership Anniversary Wishes WhatsApp"
-            />
-            <ToggleComp
-              isChecked={automaticExpirySevenDayWa}
-              setIsChecked={setAutomaticExpirySevenDayWa}
-              labelText="Automatic Expiry Seven Day WhatsApp"
-            />
-            <ToggleComp
-              isChecked={automaticExpiryBeforeDayWa}
-              setIsChecked={setAutomaticExpiryBeforeDayWa}
-              labelText="Automatic Expiry Before Day WhatsApp"
-            />
+            <SettingsToggle toggleKey="automaticBirthdayWishesWa" />
+            <SettingsToggle toggleKey="automaticMarriageAnniversaryWishesWa" />
+            <SettingsToggle toggleKey="automaticMembershipAnniversaryWishesWa" />
+            <SettingsToggle toggleKey="automaticExpirySevenDayWa" />
+            <SettingsToggle toggleKey="automaticExpiryBeforeDayWa" />
+            {isChanged === 1 && (
+              <div className="errorText" style={{ padding: "1rem 0rem" }}>
+                Api failed due to some internal reason. Please try again after
+                some time.
+              </div>
+            )}
+          </div>
+          <div className="add-membership-footer">
+            <div style={{ width: "94%", textAlign: "right" }}>
+              <button
+                type="button"
+                className="btn btn-default"
+                onClick={() => {
+                  refetchSettings();
+                }}
+              >
+                Reset
+              </button>
+              <button
+                type="button"
+                className={`btn btn-warning ${isDisable && "disabled"}`}
+                onClick={updateSettings}
+              >
+                {isLoading ? <div className="loader" /> : <>Update settings </>}
+              </button>
+            </div>
           </div>
         </div>
       </div>

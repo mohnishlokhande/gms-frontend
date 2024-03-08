@@ -5,6 +5,7 @@ import {
   useLeadsStore,
   useMembershipHistoryStore,
   useMembershipsStore,
+  useSettingsStore,
 } from "../store/secondaryStore";
 import {
   useAccountStore,
@@ -18,17 +19,17 @@ const useGetAPI = (endPoint, type = undefined, refetchCount = 1) => {
   const [data, setData] = useState(undefined);
   const [isLoading, setLoading] = useState(false);
   const token = localStorage.getItem("token");
-  const updateUsers = useUsersStore((state) => state.setUsers);
-  const updateGyms = useGymsStore((state) => state.setGyms);
-  const updateMemberships = useMembershipsStore(
-    (state) => state.setMemberships
-  );
-  const updateLeads = useLeadsStore((state) => state.setLeads);
-  const updateAcc = useAccountStore((state) => state.setAccount);
-  const updateUserProfile = useUserProfileStore((state) => state.setUser);
-  const updateMemberHistory = useMembershipHistoryStore(
+  const setUsers = useUsersStore((state) => state.setUsers);
+  const setGyms = useGymsStore((state) => state.setGyms);
+  const setMemberships = useMembershipsStore((state) => state.setMemberships);
+  const setLeads = useLeadsStore((state) => state.setLeads);
+  const setAcc = useAccountStore((state) => state.setAccount);
+  const setUserProfile = useUserProfileStore((state) => state.setUser);
+  const setMemberHistory = useMembershipHistoryStore(
     (state) => state.setHistory
   );
+  const setSettings = useSettingsStore((state) => state.setSettings);
+
   useEffect(() => {
     if (token) {
       setLoading(true);
@@ -41,25 +42,28 @@ const useGetAPI = (endPoint, type = undefined, refetchCount = 1) => {
         .then((value) => {
           switch (type) {
             case "users":
-              updateUsers(value.data.users);
+              setUsers(value.data.users);
               break;
             case "gyms":
-              updateGyms(value.data.gyms);
+              setGyms(value.data.gyms);
               break;
             case "memberships":
-              updateMemberships(value.data.memberships);
+              setMemberships(value.data.memberships);
               break;
             case "leads":
-              updateLeads(value.data.users);
+              setLeads(value.data.users);
               break;
             case "account":
-              updateAcc(value.data);
+              setAcc(value.data);
               break;
             case "user":
-              updateUserProfile(value.data);
+              setUserProfile(value.data);
               break;
             case "membershipHistory":
-              updateMemberHistory(value.data.results);
+              setMemberHistory(value.data.results);
+              break;
+            case "settings":
+              setSettings(value.data);
               break;
           }
           setData(value.data);
