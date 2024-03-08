@@ -19,6 +19,7 @@ const Layout = (props) => {
   let membershipsClassName = "treeview";
   let leadsClassName = "treeview";
   let notifyClassName = "treeview";
+  let settingsClassName = "treeview";
 
   switch (pathName[1]) {
     case "": {
@@ -43,6 +44,10 @@ const Layout = (props) => {
     }
     case "notify": {
       notifyClassName += " active";
+      break;
+    }
+    case "settings": {
+      settingsClassName += " active";
       break;
     }
   }
@@ -143,7 +148,7 @@ const Layout = (props) => {
                       navigate("/gym");
                     }}
                   >
-                    <i className="fa fa-cogs"></i>
+                    <i className="fa fa-puzzle-piece"></i>
                     <span>GYM</span>
                   </a>
                 </li>
@@ -210,6 +215,17 @@ const Layout = (props) => {
                       </a>
                     </li>
                   </ul>
+                </li>
+
+                <li className={settingsClassName}>
+                  <a
+                    onClick={() => {
+                      navigate("/settings");
+                    }}
+                  >
+                    <i className="fa fa-cogs"></i>
+                    <span>Settings</span>
+                  </a>
                 </li>
 
                 {/* <li className="header">LABELS</li>

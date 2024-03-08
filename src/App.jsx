@@ -14,6 +14,7 @@ import NotifyPage from "./pages/NotifyPage";
 import ForgotPassword from "./pages/login/ForgotPassword";
 import ResetPassword from "./pages/login/ResetPassword";
 import NotifyBulkPage from "./pages/NotifyBulkPg";
+import SettingsPage from "./pages/SettingsPage";
 
 const protectedRoutes = [
   {
@@ -57,6 +58,10 @@ const protectedRoutes = [
   {
     path: "/notify/bulk",
     element: <NotifyBulkPage />,
+  },
+  {
+    path: "/settings",
+    element: <SettingsPage />,
   },
 ];
 

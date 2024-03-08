@@ -1562,7 +1562,7 @@ section#tables p {
 /*--table--*/
 .tables h4 {
   font-size: 1.4em;
-  margin-bottom: 1em;
+  margin-bottom: 1rem;
   color: #777777;
 }
 .tables .panel-body,
@@ -7501,7 +7501,7 @@ h4.asd label {
     padding: 1.5em 1.5em 0em;
   }
   .tables h4 {
-    margin-bottom: 0.8em;
+    margin-bottom: 0.8rem;
   }
   .tables .table > thead > tr > th,
   .tables .table > tbody > tr > th,
@@ -8197,7 +8197,7 @@ h4.asd label {
     margin-bottom: 14px;
   }
   .tables h4 {
-    margin-bottom: 0.5em;
+    margin-bottom: 0.5rem;
   }
   .tables .panel-body,
   .tables .bs-example {
