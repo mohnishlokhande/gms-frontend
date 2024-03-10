@@ -15,15 +15,12 @@ import ForgotPassword from "./pages/login/ForgotPassword";
 import ResetPassword from "./pages/login/ResetPassword";
 import NotifyBulkPage from "./pages/NotifyBulkPg";
 import SettingsPage from "./pages/SettingsPage";
+import Dashboard from "./pages/Dashboard";
 
 const protectedRoutes = [
   {
     path: "/",
-    element: (
-      <div id="page-wrapper" style={{ height: "90vh" }}>
-        home
-      </div>
-    ),
+    element: <Dashboard />,
   },
   { path: "/users", element: <UsersPage /> },
   { path: "/gym", element: <GymPage /> },
