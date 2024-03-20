@@ -2430,7 +2430,7 @@ h4.modal-title {
   padding: 0;
 }
 .col-md-3.widget {
-  width: 18.8%;
+  width: 24%;
   -webkit-transition: 0.5s all;
   -moz-transition: 0.5s all;
   -o-transition: 0.5s all;
@@ -2535,7 +2535,7 @@ i.dollar2 {
   padding: 0.5em 0 0.5em 0;
 }
 .row-one {
-  margin-top: 20px;
+  margin-top: 1rem;
 }
 /*-- col_3 --*/
 
@@ -7960,6 +7960,9 @@ h4.asd label {
   }
 }
 @media (max-width: 600px) {
+  .row-one {
+    margin-top: 12px;
+  }
   .search-box {
     width: 47%;
     margin: 0.7em 0 0 0em;
@@ -8309,9 +8312,9 @@ h4.asd label {
     float: right;
     margin-right: 2em;
   }
-  .cbp-spmenu-push div#page-wrapper {
+  /* .cbp-spmenu-push div#page-wrapper {
     padding: 9em 1em 2em;
-  }
+  } */
   .input__label {
     width: 90%;
     left: 10%;
@@ -8864,7 +8867,7 @@ h4.asd label {
     background-size: 20px;
   }
   .signup-page input[type="password"] {
-    background: url(../images/lock.png) no-repeat 8px 10px #fff; 
+    background: url(../images/lock.png) no-repeat 8px 10px #fff;
   }
   .forgot {
     font-size: 0.9em;
